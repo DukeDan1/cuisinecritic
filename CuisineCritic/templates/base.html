@@ -16,46 +16,109 @@
         -
         {% endblock %} 
     </title>
+    <style>
+        .container {
+            max-width: 960px;
+        }
+
+        .header-mw700 {
+            max-width: 700px;
+        }
+
+        #background-img-wrap {
+          background: url('https://cdn.discordapp.com/attachments/960946380476669994/1080909695855906887/Chinese-food-e1503874824887_1.png') no-repeat;
+          background-position: center; 
+          width: 100%;
+        }
+
+
+
+        .bg-wrap-contents {
+          padding: 15rem !important;
+        }
+
+        @media screen and (max-width: 500px) {
+            .bg-wrap-contents {padding:5rem !important;}
+        }
+
+        .vertical-center {
+          margin: 0;
+          position: absolute;
+          top: 50%;
+          -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+        }
+
+        #section1 {
+          background-color: #9dd5e3;
+        }
+
+        footer {
+            background-color: #2e302b;
+        }
+
+        footer * {
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-dark navbar-expand-lg">
-        <div class="container container-fluid">
-          <a class="navbar-brand" href="#">
-            <img src="https://cuisine.dukedan.uk/somecoollogo.png" alt="" height="40">
-          </a>
-
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" pa-marked="1">
-          <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="collapse navbar-collapse justify-content-end" id="navbarColor01">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link active" href="#" pa-marked="1">Home
-                    <span class="visually-hidden">(current)</span>
+    <div class="bg-image vh-100" id="background-img-wrap">
+        <nav class="navbar navbar-dark navbar-expand-lg">
+            <div class="container container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="https://cuisine.dukedan.uk/somecoollogo.png" alt="" height="40">
                 </a>
-              </li>
 
-              <li class="nav-item">
-                <a class="nav-link" href="#another" pa-marked="1">Another option</a>
-              </li>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" pa-marked="1">
+                <span class="navbar-toggler-icon"></span>
+                </button>
 
-            </ul>
-          </div>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarColor01">
+                    <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" pa-marked="1">Home
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#another" pa-marked="1">Another option</a>
+                    </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="text-center bg-wrap-contents">
+            <div class="mask">
+                <div class="h-100 w-100">
+                    <div class="text-light align-middle">
+                        <h1 class="mb-3">Cuisine Critic</h1>
+                        <a href="restaurants">
+                            <button type="button" class="btn btn-lg btn-light">Explore</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </nav>
+
+    </div>
 
     <!-- Page specific content goes here -->
     <div class="container">
-        {% block body_block %}
-        {% endblock %}
+        <main>
+            {% block body_block %}
+            {% endblock %}
+        </main>
     </div>
 
-    <div class="container">
-        <footer>
-            <p>Footer</p>
-        </footer>
-    </div>
+    <footer>
+        <div class="container">
+                <p>Footer</p>
+        </div>
+    </footer>
 
 </body>
 </html>
