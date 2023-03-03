@@ -4,7 +4,7 @@ drop database if exists cuisine_critic;
 create database cuisine_critic;
 use cuisine_critic;
 
-
+/* test */
 create table user (
     user_id varchar(50) not null,
     forename varchar(50) not null,
