@@ -6,4 +6,7 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime
 
 def index(request):
-    return render(request, 'index.html', context={})
+    return render(request, 'CuisineCritic/index.html', context={})
+
+def login(request):
+    return render(request, 'CuisineCritic/login.html')
