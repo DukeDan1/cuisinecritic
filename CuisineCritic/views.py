@@ -10,3 +10,15 @@ def index(request):
 
 def login(request):
     return render(request, 'CuisineCritic/login.html')
+
+def register(request):
+    return render(request, 'CuisineCritic/register.html')
+
+def restaurants(request):
+    return render(request, 'CuisineCritic/restaurants.html')
+
+def profile(request):
+    return render(request, 'CuisineCritic/profile.html')
+
+def account(request):
+    return render(request, 'CuisineCritic/account.html')
