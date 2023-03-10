@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+{% block body_block %}
+<html lang="en" dir="ltr">
+    <head>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+    </head>
+
+    <body>
+        <section>
+            <div class="form-box">
+                <div class="form-value">
+                    <form action="#">
+                        <h2>Create an account</h2>
+                        <div class="inputbox">
+                            <ion-icon name="mail-outline"></ion-icon>
+                            <span class="icon"></span>
+                            <input type="email" required>
+                            <label>Email</label>
+                        </div>
+                        <div class="inputbox">
+                            <ion-icon name="body-outline"></ion-icon>
+                            <span class="icon"></span>
+                            <input type="fname" required>
+                            <label>Full Name</label>
+                        </div>
+                        <div class="inputbox">
+                            <ion-icon name="body-outline"></ion-icon>
+                            <span class="icon"></span>
+                            <input type="fname" required>
+                            <label>Username</label>
+                        </div>
+                        <div class="inputbox">
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+                            <span class="icon"></span>
+                            <input type="password" required>
+                            <label>Create a password</label>
+                        </div>
+                        <button>Create account<a href="profile"></a></button>
+                        <br><br>
+                        <div class="forget">
+                            <p>Already have an account? <a href="login">Login</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    </body>
+</html>
+{% endblock %}
+
