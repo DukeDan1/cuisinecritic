@@ -26,10 +26,31 @@ section{
     align-items: center;   
 }
 
+.restaurant-box{
+    position: relative;
+    margin-top: 18%;
+    width: 1000px;
+    height: 800px;
+    background: #faebd7;
+    display: flex;
+    justify-content: left;
+    align-items: left;
+}
+
+
+
 h2{
+    font-family: 'Poppins', sans-serif;
     font-size: 2em;
     color: #fff;
     text-align: center;
+}
+
+h3{
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2em;
+    color: #2e302b;
+    text-align: left;
 }
 
 .inputbox{
@@ -68,6 +89,14 @@ top: -5px;
     position: absolute;
     right: 8px;
     color: #fff;
+    font-size: 1.2em;
+    top: 20px;
+}
+
+.image-container ion-icon{
+    position: absolute;
+    right: 8px;
+    color: black;
     font-size: 1.2em;
     top: 20px;
 }
@@ -175,6 +204,77 @@ button{
     top: 20px;
 }
 
+.container {
+    max-width: 960px;
+}
+
+.header-mw700 {
+    max-width: 700px;
+}
+
+#background-img-wrap {
+  background: url('https://cdn.discordapp.com/attachments/960946380476669994/1080909695855906887/Chinese-food-e1503874824887_1.png') no-repeat;
+  background-position: center; 
+  width: 100%;
+}
+
+
+
+.bg-wrap-contents {
+  padding: 15rem !important;
+}
+
+@media screen and (max-width: 500px) {
+    .bg-wrap-contents {padding:5rem !important;}
+}
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+#section1 {
+  background-color: #9dd5e3;
+}
+
+footer {
+    background-color: #2e302b;
+}
+
+footer * {
+    color: #fff;
+}
+
+nav div div ul li a.active {
+    color: #b5adad !important;
+}
+
+
+.photo-container{
+    max-width: 1200px;
+    margin: auto;
+    background: #f2f2f2
+}
+
+.gallery{
+    margin: 5px;
+    border: 1px;
+    float: left;
+    width: 390px;
+}
+
+.gallery img{
+    width: 100%;
+    height: auto;
+}
+
+.name{
+    padding: 15px;
+    text-align: center;
+}
 
 
 

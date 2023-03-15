@@ -1,11 +1,73 @@
 {% extends 'CuisineCritic/base.html' %}
 {% block title_block %}
-    Homepage
-{% endblock %}  
+    Restaurant page
+{% endblock %} 
 {% load staticfiles %}
 
 {% block navbar %}
-<div class="bg-image vh-100" id="background-img-wrap">
+<html lang="en" dir="ltr">
+    <head>
+      <title>Restaurants</title>
+      <style>
+        *{
+          box-sizing: border-box;
+        }
+        body{
+          margin: 0;
+          background: url("https://media.istockphoto.com/id/545286388/photo/chinese-food-blank-background.jpg?s=612x612&w=0&k=20&c=pqOIy07YKO5PlU5VxjscwTGRrrZ8PluKMUjSOz-II60=");
+        }
+        nav{
+          background: #2e302b;
+          width: 100%;
+          overflow: auto;
+        }
+        ul{
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+        li{
+          float: left;
+        }
+        nav a{
+          width: 120px;
+          display: block;
+          text-decoration: none;
+          text-align: center;
+          background: #2e302b;
+          font-size: 17px;
+          color: white;
+          padding: 20px 10px;
+          font-family: 'Poppins', sans-serif;
+        }
+        nav a:hover{
+          background: skyblue;
+          color: black;
+        }
+        .image-container{
+          max-width: 1200px;
+          margin: auto;
+          background: #f2f2f2;
+          overflow: auto;
+        }
+        .gallery{
+          margin: 5px;
+          border: 1px solid #ccc;
+          float: left;
+          width: 390px;
+        }
+        .gallery img{
+          width: 100%;
+          height: auto;
+        }
+        .name{
+          padding: 15px;
+          text-align: center;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="bg-image vh-100" id="background-img-wrap">
     <nav class="navbar navbar-dark navbar-expand-lg">
         <div class="container container-fluid">
             <a class="navbar-brand" href="#">
@@ -26,16 +88,97 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#search" pa-marked="1">Search</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#account" pa-marked="1">Account</a>
+                    <a class="nav-link" href='login' pa-marked="1">Login</a>
                 </li>
 
                 </ul>
             </div>
         </div>
     </nav>
-</div>
+    <br></br>
+    <br></br>
+    <h2>Check out some of our favourite places below!</h2>
+    <br></br>
+    
+
+      <div class="image-container">
+        <button>Search here for more options <a href="#"></button>
+        <h3>Chinese</h3>
+        <div class="gallery">
+          <img src="https://media-cdn.tripadvisor.com/media/photo-s/0b/1b/b6/02/china-red-ii.jpg">
+          <button>Chinese Manor House <a href="#"></button>
+        </div>
+
+        <div class="gallery">
+          <img src="https://media-cdn.tripadvisor.com/media/photo-s/19/cf/39/c1/tattu-edinburgh.jpg">
+          <button>Shanghai Shuffle <a href="#"></button>
+        </div>
+
+        <div class="gallery">
+          <img src="https://resdiaryportal.wpengine.com/wp-content/uploads/2022/01/chinese-restaurants-edinburgh-bd-kitchen_09072019114600.jpg">
+          <button>Lucky Star <a href="#"></button>
+        </div>
+
+      </div>
+
+      <div class="image-container">
+        <h3>Indian</h3>
+        <div class="gallery">
+          <img src="https://www.saga.co.uk/contentlibrary/saga/publishing/verticals/travel/destinations/asia/traditional-indian-food.jpg">
+          <button>Alessi <a href="#"></button>
+        </div>
+
+        <div class="gallery">
+          <img src="https://static.wixstatic.com/media/c24d42_a3e4244461d14c7c864d5c19593c1026~mv2.jpg/v1/fill/w_640,h_414,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/c24d42_a3e4244461d14c7c864d5c19593c1026~mv2.jpg">
+          <button>Bombay Banquet <a href="#"></button>
+        </div>
+
+        <div class="gallery">
+          <img src="https://www.eatthis.com/wp-content/uploads/sites/4/media/images/ext/919487255/tandoori-chicken-indian-food.jpg">
+          <button>Eastern Pavilion <a href="#"></button>
+        </div>
+      </div>
+
+      <div class="image-container">
+        <h3>Mexican</h3>
+        <div class="gallery">
+          <img src="https://img.restaurantsbrighton.co.uk/wp-content/uploads/2021/01/Carlito-Burrito.jpg">
+          <button>Topolobamba <a href="#"></button>
+        </div>
+
+        <div class="gallery">
+          <img src="https://www.allrecipes.com/thmb/Y4brle_IWwQ6ll1v4i69TO5sbfI=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/102108380-Authentic-Mexican-Cuisine-Photo-by-Meredith-ebaca57279a548d6b6ef266493497fc3.jpg">
+          <button>El Pastor <a href="#"></button>
+        </div>
+
+        <div class="gallery">
+          <img src="https://img.taste.com.au/Tz3MDa2i/w1200-h630-cfill/taste/2016/11/mexican-spice-mix-76221-1.jpeg">
+          <button>Wahaca <a href="#"></button>
+        </div>
+      </div>
+
+      <div class="image-container">
+        <h3>Thai</h3>
+        <div class="gallery">
+          <img src="https://lirp.cdn-website.com/cf4fecee/dms3rep/multi/opt/Thai-635x423-960w.jpg">
+          <button>Phucket <a href="#"></button>
+        </div>
+
+        <div class="gallery">
+          <img src="https://photos.smugmug.com/Test-Photos/i-4dsWWsK/0/X3/eating-thai-food-photos-12-X3.jpg">
+          <button>Kao Sarn <a href="#"></button>
+        </div>
+
+        <div class="gallery">
+          <img src="https://media-cdn.tripadvisor.com/media/photo-s/19/e6/9d/57/drunken-rice.jpg">
+          <button>The Mango Tree <a href="#"></button>
+        </div>
+      </div>
+
+    </body>
+</html>
 {% endblock %}
+
+
+
+
