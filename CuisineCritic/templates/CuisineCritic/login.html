@@ -1,11 +1,22 @@
-<!DOCTYPE html>
+{% extends 'CuisineCritic/base.html' %}
+{% block title_block %}
+    Loginpage
+{% endblock %} 
 {% load staticfiles %}
 
-{% block body_block %}
+{% block navbar %}
 <html lang="en" dir="ltr">
     <head>
         <link rel="stylesheet" href="{% static 'style.css' %}">
     </head>
+    <style>
+        .form-box h2{
+            font-family: 'Poppins', sans-serif;
+            font-size: 2em;
+            color: #fff;
+            text-align: center;
+        }
+    </style>
 
     <body>
         <section>
@@ -26,7 +37,7 @@
                             <label>Password</label>
                         </div>
                         <div class="forget">
-                            <label for=""><input type="checkbox">Remember Me <a href="#">Forgotten Password</a></label>
+                            <label for=""><input type="checkbox">Remember Me <a href="forgottenPassword">Forgotten Password</a></label>
                         </div>
                         <button>Log in <a href="restaurants"></button>
                         <div class="register">
