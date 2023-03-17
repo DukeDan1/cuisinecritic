@@ -31,15 +31,16 @@ section{
     margin-top: 18%;
     width: 1000px;
     height: 800px;
-    background: #faebd7;
+    background: #f2f2f2;
     display: flex;
-    justify-content: left;
-    align-items: left;
+    justify-content: center;
+    align-items: center;
 }
+.restaurant-box
 
 
 
-h2{
+.form-box h2{
     font-family: 'Poppins', sans-serif;
     font-size: 2em;
     color: #fff;
@@ -276,5 +277,101 @@ nav div div ul li a.active {
     text-align: center;
 }
 
+body{
+    margin: 0;
+    background: url("https://media.istockphoto.com/id/545286388/photo/chinese-food-blank-background.jpg?s=612x612&w=0&k=20&c=pqOIy07YKO5PlU5VxjscwTGRrrZ8PluKMUjSOz-II60=");
+}
+nav{
+    background: #2e302b;
+    width: 100%;
+    overflow: auto;
+}
+ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+li{
+    float: left;
+}
+nav a{
+    width: 120px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    background: #2e302b;
+    font-size: 17px;
+    color: white;
+    padding: 20px 10px;
+    font-family: 'Poppins', sans-serif;
+}
+nav a:hover{
+    background: skyblue;
+    color: black;
+}
+.image-container{
+    max-width: 1200px;
+    margin: auto;
+    background: #f2f2f2;
+    overflow: auto;
+}
+.gallery{
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 390px;
+}
+.gallery img{
+    width: 100%;
+    height: auto;
+}
+.name{
+    padding: 15px;
+    text-align: center;
+}
 
+
+.profile-box{
+    width: 450px;
+    padding: 40px;
+    background-color: transparent;
+    text-align: center;
+    margin: auto;
+    margin-top: 5%;
+    color: #f2f2f2;
+    font-family: 'Poppins', sans-serif;
+}
+.profile-box-img{
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+.profile-box h1{
+    font-size: 40px;
+    letter-spacing: 4px;
+    font-weight: 100;
+}
+.profile-box h4{
+    font-size: 25px;
+    letter-spacing: 3px;
+    font-weight: 100;
+}
+.ul{
+    margin: 0;
+    padding: 0;
+}
+.box li{
+    display: inline-block;
+    margin: 6px;
+    list-style: none;
+}
+.box li a{
+    color: #f2f2f2;
+    text-decoration: none;
+    font-size: 60px;
+    transition: all ease-in-out 250ms;
+}
+.box li a:hover{
+    color: #b9b9b9;
+}
 

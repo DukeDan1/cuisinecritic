@@ -7,6 +7,7 @@
 {% block navbar %}
 <html lang="en" dir="ltr">
     <head>
+      <link rel="stylesheet" href="{% static 'style.css' %}">
       <title>Restaurants</title>
       <style>
         *{
@@ -64,14 +65,43 @@
           padding: 15px;
           text-align: center;
         }
+        .search-container{
+          width: 100%;
+          min-height: 100vh;
+          padding: 5%;
+          background-position: center;
+          background-size: cover;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: -30%;
+        }
+        .search-bar{
+          width: 100%;
+          max-width: 700px;
+          background: white;
+          display: flex;
+          align-items: center;
+          border-radius: 60px;
+          padding: 10px 20px;
+
+        }
+        .search-bar input{
+          background: transparent;
+          flex: 1;
+          border: 0;
+          outline: none;
+          padding: 24px 20px;
+          font-size: 20px;
+          color: black;
+        }
       </style>
     </head>
     <body>
-      <div class="bg-image vh-100" id="background-img-wrap">
+    <div class="bg-image vh-100" id="background-img-wrap">
     <nav class="navbar navbar-dark navbar-expand-lg">
         <div class="container container-fluid">
             <a class="navbar-brand" href="#">
-                <!-- <img src="https://cuisine.dukedan.uk/somecoollogo.png" alt="" height="40"> !-->
                 Cuisine Critic
             </a>
 
@@ -86,10 +116,9 @@
                         <span class="visually-hidden">(current)</span>
                     </a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link" href='login' pa-marked="1">Login</a>
-                </li>
+                  <a class="nav-link" href='account' pa-marked="1">Account</a>
+              </li>
 
                 </ul>
             </div>
@@ -97,83 +126,97 @@
     </nav>
     <br></br>
     <br></br>
-    <h2>Check out some of our favourite places below!</h2>
     <br></br>
-    
 
+    <div class="search-container">
+      <form action="" class="search-bar">
+        <input type="text" placeholder="Search a place or cuisine" name="q">
+        <button type="submit"></button>
+      </form>
+    </div>    
+
+    
+    <div>
       <div class="image-container">
-        <button>Search here for more options <a href="#"></button>
         <h3>Chinese</h3>
         <div class="gallery">
-          <img src="https://media-cdn.tripadvisor.com/media/photo-s/0b/1b/b6/02/china-red-ii.jpg">
-          <button>Chinese Manor House <a href="#"></button>
+          <img src="{% static 'images/chinese-photo-1.jpg' %}">
+          <button>Chinese Manor House- ★★★★★ <a href="#"></button>
         </div>
 
         <div class="gallery">
-          <img src="https://media-cdn.tripadvisor.com/media/photo-s/19/cf/39/c1/tattu-edinburgh.jpg">
-          <button>Shanghai Shuffle <a href="#"></button>
+          <img src="{% static 'images/chinese-photo-2.jpg' %}">
+          <button>Shanghai Shuffle- ★★★★★ <a href="#"></button>
         </div>
 
         <div class="gallery">
-          <img src="https://resdiaryportal.wpengine.com/wp-content/uploads/2022/01/chinese-restaurants-edinburgh-bd-kitchen_09072019114600.jpg">
-          <button>Lucky Star <a href="#"></button>
+          <img src="{% static 'images/chinese-photo-3.jpg' %}">
+          <button>Lucky Star- ★★★★ <a href="#"></button>
         </div>
-
       </div>
+    </div>
 
+    <div>
       <div class="image-container">
         <h3>Indian</h3>
         <div class="gallery">
-          <img src="https://www.saga.co.uk/contentlibrary/saga/publishing/verticals/travel/destinations/asia/traditional-indian-food.jpg">
-          <button>Alessi <a href="#"></button>
+          <img src="{% static 'images/indian-photo-1.jpg' %}">
+          <button>Alessi- ★★★★★ <a href="#"></button>
         </div>
 
         <div class="gallery">
-          <img src="https://static.wixstatic.com/media/c24d42_a3e4244461d14c7c864d5c19593c1026~mv2.jpg/v1/fill/w_640,h_414,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/c24d42_a3e4244461d14c7c864d5c19593c1026~mv2.jpg">
-          <button>Bombay Banquet <a href="#"></button>
+          <img src="{% static 'images/indian-photo-2.jpg' %}">
+          <button>Bombay Banquet- ★★★★★ <a href="#"></button>
         </div>
 
         <div class="gallery">
-          <img src="https://www.eatthis.com/wp-content/uploads/sites/4/media/images/ext/919487255/tandoori-chicken-indian-food.jpg">
-          <button>Eastern Pavilion <a href="#"></button>
+          <img src="{% static 'images/indian-photo-3.jpg' %}">
+          <button>Eastern Pavilion- ★★★★ <a href="#"></button>
         </div>
       </div>
+    </div>
 
+    <div>
       <div class="image-container">
         <h3>Mexican</h3>
         <div class="gallery">
-          <img src="https://img.restaurantsbrighton.co.uk/wp-content/uploads/2021/01/Carlito-Burrito.jpg">
-          <button>Topolobamba <a href="#"></button>
+          <img src="{% static 'images/mexican-photo-1.jpg' %}">
+          <button>Topolobamba- ★★★★ <a href="#"></button>
         </div>
 
         <div class="gallery">
-          <img src="https://www.allrecipes.com/thmb/Y4brle_IWwQ6ll1v4i69TO5sbfI=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/102108380-Authentic-Mexican-Cuisine-Photo-by-Meredith-ebaca57279a548d6b6ef266493497fc3.jpg">
-          <button>El Pastor <a href="#"></button>
+          <img src="{% static 'images/mexican-photo-2.jpg' %}">
+          <button>El Pastor- ★★★★★ <a href="#"></button>
         </div>
 
         <div class="gallery">
-          <img src="https://img.taste.com.au/Tz3MDa2i/w1200-h630-cfill/taste/2016/11/mexican-spice-mix-76221-1.jpeg">
-          <button>Wahaca <a href="#"></button>
+          <img src="{% static 'images/mexican-photo-3.jpg' %}">
+          <button>Wahaca- ★★★★ <a href="#"></button>
         </div>
       </div>
+    </div>
 
+    <div>
       <div class="image-container">
         <h3>Thai</h3>
         <div class="gallery">
-          <img src="https://lirp.cdn-website.com/cf4fecee/dms3rep/multi/opt/Thai-635x423-960w.jpg">
-          <button>Phucket <a href="#"></button>
+          <img src="{% static 'images/thai-photo-1.jpg' %}">
+          <button>Phucket- ★★★★★ <a href="theMangoTree"></button>
         </div>
 
         <div class="gallery">
-          <img src="https://photos.smugmug.com/Test-Photos/i-4dsWWsK/0/X3/eating-thai-food-photos-12-X3.jpg">
-          <button>Kao Sarn <a href="#"></button>
+          <img src="{% static 'images/thai-photo-2.jpg' %}">
+          <button>Kao Sarn- ★★★★★ <a href="theMangoTree"></button>
         </div>
 
         <div class="gallery">
-          <img src="https://media-cdn.tripadvisor.com/media/photo-s/19/e6/9d/57/drunken-rice.jpg">
-          <button>The Mango Tree <a href="#"></button>
+          <img src="{% static 'images/thai-photo-3.jpg' %}">
+          <button>The Mango Tree- ★★★★★ <a href="theMangoTree"></button>
+            <br></br>
+            <br></br>
         </div>
       </div>
+    </div>
 
     </body>
 </html>

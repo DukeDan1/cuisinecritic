@@ -1,0 +1,164 @@
+{% extends 'CuisineCritic/base.html' %}
+{% block title_block %}
+    Chinese Manor House Page
+{% endblock %} 
+{% load staticfiles %}
+
+{% block navbar %}
+<html lang="en" dir="ltr">
+    <head>
+      <link rel="stylesheet" href="{% static 'style.css' %}">
+      <title>Chinese Manor House</title>
+      <style>
+        .restaurant-profile-box{
+            width: 1000px;
+            height: 600px;
+            padding: 40px;
+            background-color: #f2f2f2;
+            text-align: auto;
+            margin: auto;
+            margin-top: 2%;
+            color: #f2f2f2;
+            font-family: 'Poppins', sans-serif;
+        }
+        .restaurant-profile-box-img{
+            border-radius: 15px;
+            width: 400px;
+            height: 300px;
+            align-items: left;
+        }
+        .ul{
+            margin: 0;
+            padding: 0;
+        }
+        .restaurant-profile-box li{
+            display: inline-block;
+            margin: 6px;
+            list-style: none;
+        }
+        .restaurant-profile-box li a{
+            color: #f2f2f2;
+            text-decoration: none;
+            font-size: 60px;
+            transition: all ease-in-out 250ms;
+        }
+        .restaurant-profile-box li a:hover{
+            color: #b9b9b9;
+        }
+        .restaurant-profile-box h1{
+            font-size: 40px;
+            letter-spacing: 2px;
+            font-weight: 100;
+            color: black;
+        }
+        .restaurant-profile-box h2{
+            font-size: 13px;
+            letter-spacing: 0.2px;
+            font-weight: 300;
+            color: black;
+            text-align: left;
+        }
+        .restaurant-profile-box h4{
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-weight: 100;
+            color: black;
+        }
+        .restaurant-profile-box h6{
+          font-size: 25px;
+          font-family: 'Poppins', sans-serif;
+          color: black;
+        }
+        .review-box{
+          position: absolute;
+          height: 500px;
+          width: 470px;
+          background: white;
+          left:650px;
+          top: 23%;
+          text-align: center;
+        }
+      </style>
+    </head>
+    <body>
+    <div class="bg-image vh-100" id="background-img-wrap">
+    <nav class="navbar navbar-dark navbar-expand-lg">
+        <div class="container container-fluid">
+            <a class="navbar-brand" href="#">
+                Cuisine Critic
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" pa-marked="1">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarColor01">
+                <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="restaurants" pa-marked="1">Home
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href='account' pa-marked="1">Account</a>
+                </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav> 
+    <div class="restaurant-profile-box">
+      <img src="{% static 'images/mexican-photo-1.jpg' %}" alt="" class="restaurant-profile-box-img">
+      <div class="review-box">
+        <h6>
+          Past reviews:
+        </h6>
+        <p>
+        <h2>
+          • Ryan Higgins: <br></br> Food: ★★★★★  Value: ★★★ Service: ★★★ Overall: ★★★★
+          <br></br> Best food in town, but it took a long time to arrive
+        </h2>
+      </p>
+      <br></br>
+
+      <p>
+        <h2>
+          • Siobhan Donaghy: <br></br> Food: ★★★★★  Value: ★★★★★ Service: ★★★ Overall: ★★★★
+          <br></br> Food took a while to arrive but the beef tacos were great and really cheap too!
+        </h2>
+      </p>
+      <br></br>
+      <textarea id="freeform" name="freeform" rows="4" cols="50">
+        Rate this restaurant:
+        Food:
+        Value:
+        Service:
+        Overall:
+        Enter your own review here:
+        </textarea>
+      </div>
+      <h1>Topolobamba</h1>
+      <h4>
+        Food: ★★★★★
+        Value: ★★★★
+        Service: ★★★
+        Overall: ★★★★
+        <br></br>
+      </h4>
+      <h2>
+        60 Mariia Drive, Glasgow, G10 8KM
+        <br></br>
+        Phone: 0141 028 1737
+        <br></br>
+        Email: Topolobamba@gmail.com
+      </h2>
+      
+    </div>
+    
+    </div>
+
+    </body>
+</html>
+
+{% endblock %}
