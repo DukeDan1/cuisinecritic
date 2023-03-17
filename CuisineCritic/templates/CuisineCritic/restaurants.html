@@ -17,84 +17,14 @@
           margin: 0;
           background: url("https://media.istockphoto.com/id/545286388/photo/chinese-food-blank-background.jpg?s=612x612&w=0&k=20&c=pqOIy07YKO5PlU5VxjscwTGRrrZ8PluKMUjSOz-II60=");
         }
-        nav{
-          background: #2e302b;
-          width: 100%;
-          overflow: auto;
-        }
-        ul{
-          margin: 0;
-          padding: 0;
-          list-style: none;
-        }
-        li{
-          float: left;
-        }
-        nav a{
-          width: 120px;
-          display: block;
-          text-decoration: none;
-          text-align: center;
-          background: #2e302b;
-          font-size: 17px;
-          color: white;
-          padding: 20px 10px;
-          font-family: 'Poppins', sans-serif;
-        }
-        nav a:hover{
-          background: skyblue;
-          color: black;
-        }
+        
         .image-container{
           max-width: 1200px;
           margin: auto;
           background: #f2f2f2;
           overflow: auto;
         }
-        .gallery{
-          margin: 5px;
-          border: 1px solid #ccc;
-          float: left;
-          width: 390px;
-        }
-        .gallery img{
-          width: 100%;
-          height: auto;
-        }
-        .name{
-          padding: 15px;
-          text-align: center;
-        }
-        .search-container{
-          width: 100%;
-          min-height: 100vh;
-          padding: 5%;
-          background-position: center;
-          background-size: cover;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-top: -30%;
-        }
-        .search-bar{
-          width: 100%;
-          max-width: 700px;
-          background: white;
-          display: flex;
-          align-items: center;
-          border-radius: 60px;
-          padding: 10px 20px;
-
-        }
-        .search-bar input{
-          background: transparent;
-          flex: 1;
-          border: 0;
-          outline: none;
-          padding: 24px 20px;
-          font-size: 20px;
-          color: black;
-        }
+        
       </style>
     </head>
     <body>
@@ -141,17 +71,17 @@
         <h3>Chinese</h3>
         <div class="gallery">
           <img src="{% static 'images/chinese-photo-1.jpg' %}">
-          <button>Chinese Manor House- ★★★★★ <a href="#"></button>
+          <a href="chineseManorHouse"><button>Chinese Manor House- ★★★★★ </button></a>
         </div>
 
         <div class="gallery">
           <img src="{% static 'images/chinese-photo-2.jpg' %}">
-          <button>Shanghai Shuffle- ★★★★★ <a href="#"></button>
+          <a href="shanghaiShuffle"><button>Shanghai Shuffle- ★★★★★ </button></a>
         </div>
 
         <div class="gallery">
           <img src="{% static 'images/chinese-photo-3.jpg' %}">
-          <button>Lucky Star- ★★★★ <a href="#"></button>
+          <a href="luckyStar"><button>Lucky Star- ★★★★★ </button></a>
         </div>
       </div>
     </div>
@@ -161,17 +91,17 @@
         <h3>Indian</h3>
         <div class="gallery">
           <img src="{% static 'images/indian-photo-1.jpg' %}">
-          <button>Alessi- ★★★★★ <a href="#"></button>
+          <a href="alessi"><button>Alessi- ★★★★★ </button></a>
         </div>
 
         <div class="gallery">
           <img src="{% static 'images/indian-photo-2.jpg' %}">
-          <button>Bombay Banquet- ★★★★★ <a href="#"></button>
+          <a href="bombayBanquet"><button>Bombay Banquet- ★★★★★ </button></a>
         </div>
 
         <div class="gallery">
           <img src="{% static 'images/indian-photo-3.jpg' %}">
-          <button>Eastern Pavilion- ★★★★ <a href="#"></button>
+          <a href="easternPavilion"><button>Eastern Pavilion- ★★★★★ </button></a>
         </div>
       </div>
     </div>
@@ -181,17 +111,17 @@
         <h3>Mexican</h3>
         <div class="gallery">
           <img src="{% static 'images/mexican-photo-1.jpg' %}">
-          <button>Topolobamba- ★★★★ <a href="#"></button>
+          <a href="topolobamba"><button>Topolobamba- ★★★★★ </button></a>
         </div>
 
         <div class="gallery">
           <img src="{% static 'images/mexican-photo-2.jpg' %}">
-          <button>El Pastor- ★★★★★ <a href="#"></button>
+          <a href="elPastor"><button>El Pastor- ★★★★★ </button></a>
         </div>
 
         <div class="gallery">
           <img src="{% static 'images/mexican-photo-3.jpg' %}">
-          <button>Wahaca- ★★★★ <a href="#"></button>
+          <a href="wahaca"><button>Wahaca- ★★★★★ </button></a>
         </div>
       </div>
     </div>
@@ -201,17 +131,17 @@
         <h3>Thai</h3>
         <div class="gallery">
           <img src="{% static 'images/thai-photo-1.jpg' %}">
-          <button>Phucket- ★★★★★ <a href="theMangoTree"></button>
+          <a href="phucket"><button>Phucket- ★★★★★ </button></a>
         </div>
 
         <div class="gallery">
           <img src="{% static 'images/thai-photo-2.jpg' %}">
-          <button>Kao Sarn- ★★★★★ <a href="theMangoTree"></button>
+          <a href="kaoSarn"><button>Kao Sarn- ★★★★★ </button></a>
         </div>
 
         <div class="gallery">
           <img src="{% static 'images/thai-photo-3.jpg' %}">
-          <button>The Mango Tree- ★★★★★ <a href="theMangoTree"></button>
+          <a href="theMangoTree"><button>The Mango Tree- ★★★★★ </button></a>
             <br></br>
             <br></br>
         </div>

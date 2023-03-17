@@ -375,3 +375,155 @@ nav a:hover{
     color: #b9b9b9;
 }
 
+
+
+nav{
+    background: #2e302b;
+    width: 100%;
+    overflow: auto;
+  }
+  ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  li{
+    float: left;
+  }
+  nav a{
+    width: 120px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    background: #2e302b;
+    font-size: 17px;
+    color: white;
+    padding: 20px 10px;
+    font-family: 'Poppins', sans-serif;
+  }
+  nav a:hover{
+    background: skyblue;
+    color: black;
+  }
+
+
+
+
+
+  .gallery{
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 390px;
+  }
+  .gallery img{
+    width: 100%;
+    height: auto;
+  }
+  .name{
+    padding: 15px;
+    text-align: center;
+  }
+  .search-container{
+    width: 100%;
+    min-height: 100vh;
+    padding: 5%;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -30%;
+  }
+  .search-bar{
+    width: 100%;
+    max-width: 700px;
+    background: white;
+    display: flex;
+    align-items: center;
+    border-radius: 60px;
+    padding: 10px 20px;
+
+  }
+  .search-bar input{
+    background: transparent;
+    flex: 1;
+    border: 0;
+    outline: none;
+    padding: 24px 20px;
+    font-size: 20px;
+    color: black;
+  }
+
+
+
+
+  .restaurant-profile-box{
+    width: 1000px;
+    height: 600px;
+    padding: 40px;
+    background-color: #f2f2f2;
+    text-align: auto;
+    margin: auto;
+    margin-top: 2%;
+    color: #f2f2f2;
+    font-family: 'Poppins', sans-serif;
+}
+.restaurant-profile-box-img{
+    border-radius: 15px;
+    width: 400px;
+    height: 300px;
+    align-items: left;
+}
+.ul{
+    margin: 0;
+    padding: 0;
+}
+.restaurant-profile-box li{
+    display: inline-block;
+    margin: 6px;
+    list-style: none;
+}
+.restaurant-profile-box li a{
+    color: #f2f2f2;
+    text-decoration: none;
+    font-size: 60px;
+    transition: all ease-in-out 250ms;
+}
+.restaurant-profile-box li a:hover{
+    color: #b9b9b9;
+}
+.restaurant-profile-box h1{
+    font-size: 40px;
+    letter-spacing: 2px;
+    font-weight: 100;
+    color: black;
+}
+.restaurant-profile-box h2{
+    font-size: 13px;
+    letter-spacing: 0.2px;
+    font-weight: 300;
+    color: black;
+    text-align: left;
+}
+.restaurant-profile-box h4{
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: 100;
+    color: black;
+}
+.restaurant-profile-box h6{
+  font-size: 25px;
+  font-family: 'Poppins', sans-serif;
+  color: black;
+}
+.review-box{
+  position: absolute;
+  height: 500px;
+  width: 470px;
+  background: white;
+  left:650px;
+  top: 23%;
+  text-align: center;
+}
+
