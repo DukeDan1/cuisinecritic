@@ -29,6 +29,7 @@ SECRET_KEY = '=o4+5^s0^095vto4c4hv9#n0^)2%nyoav3a_z#c)+j^%15madj'
 DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", ".uofg.uk", ".dukedan.uk", ".pythonanywhere.com", "127.0.0.1"]
+ACCOUNT_ACTIVATION_DAYS = 7
 
 
 # Application definition
@@ -40,7 +41,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    #'registration'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -102,6 +110,14 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+]
+
+
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 ]
 
 
