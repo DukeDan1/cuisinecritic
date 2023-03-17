@@ -1,0 +1,101 @@
+{% extends 'CuisineCritic/base.html' %}
+{% block title_block %}
+    Account Page
+{% endblock %} 
+{% load staticfiles %}
+
+{% block navbar%}
+<html lang="en" dir="ltr">
+    <head>
+      <link rel="stylesheet" href="{% static 'style.css' %}">
+      <title>Account Page</title>
+      <style>
+        .profile-box{
+            width: 450px;
+            padding: 40px;
+            background-color: transparent;
+            text-align: center;
+            margin: auto;
+            margin-top: auto;
+            color: #f2f2f2;
+            font-family: 'Poppins', sans-serif;
+        }
+        .profile-box-img{
+            border-radius: 50%;
+            width: 200px;
+            height: 190px;
+        }
+        .profile-box h1{
+            font-size: 40px;
+            letter-spacing: 4px;
+            font-weight: 100;
+        }
+        .profile-box h4{
+            font-size: 25px;
+            letter-spacing: 3px;
+            font-weight: 100;
+        }
+        .ul{
+            margin: 0;
+            padding: 0;
+        }
+        .profile-box li{
+            display: inline-block;
+            margin: 6px;
+            list-style: none;
+        }
+        .profile-box li a{
+            color: #f2f2f2;
+            text-decoration: none;
+            font-size: 60px;
+            transition: all ease-in-out 250ms;
+        }
+        .profile-box li a:hover{
+            color: #b9b9b9;
+        }
+      </style>
+    </head>
+
+    <body>
+        <div class="bg-image vh-100" id="background-img-wrap">
+        <nav class="navbar navbar-dark navbar-expand-lg">
+            <div class="container container-fluid">
+                <a class="navbar-brand" href="#">
+                    Cuisine Critic
+                </a>
+    
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" pa-marked="1">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+    
+                <div class="collapse navbar-collapse justify-content-end" id="navbarColor01">
+                    <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="restaurants" pa-marked="1">Home
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+    
+                    </ul>
+                </div>
+            </div>
+
+        </nav>
+
+        <div class="profile-box">
+            <img src="{% static 'images/profilepic.jpg' %}" alt="" class="profile-box-img">
+            <h1>Miguel</h1>
+            <p>
+                Hey! My name is Miguel and this is my Cuisine Critic account. I love all types of food but my favourite is Thai!
+            </p>
+            <ul>
+                <li><a href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-instagram-square" aria-hidden="true"></i></a></li>
+            </ul>
+        </div>
+
+        </div> 
+    </body>
+</html>
+{% endblock %}

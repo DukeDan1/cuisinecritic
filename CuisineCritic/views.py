@@ -22,3 +22,43 @@ def profile(request):
 
 def account(request):
     return render(request, 'CuisineCritic/account.html')
+
+def chineseManorHouse(request):
+    return render(request, 'CuisineCritic/chineseManorHouse.html')
+
+def shanghaiShuffle(request):
+    return render(request, 'CuisineCritic/shanghaiShuffle.html')
+
+def luckyStar(request):
+    return render(request, 'CuisineCritic/luckyStar.html')
+
+def alessi(request):
+    return render(request, 'CuisineCritic/alessi.html')
+
+def bombayBanquet(request):
+    return render(request, 'CuisineCritic/bombayBanquet.html')
+
+def easternPavilion(request):
+    return render(request, 'CuisineCritic/easternPavilion.html')
+
+def topolobamba(request):
+    return render(request, 'CuisineCritic/topolobamba.html')
+
+def elPastor(request):
+    return render(request, 'CuisineCritic/elPastor.html')
+
+def wahaca(request):
+    return render(request, 'CuisineCritic/wahaca.html')
+
+def phucket(request):
+    return render(request, 'CuisineCritic/phucket.html')
+
+def kaoSarn(request):
+    return render(request, 'CuisineCritic/kaoSarn.html')
+
+def theMangoTree(request):
+    return render(request, 'CuisineCritic/theMangoTree.html')
+
+def forgottenPassword(request):
+    return render(request, 'CuisineCritic/forgottenPassword.html')
+
