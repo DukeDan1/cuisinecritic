@@ -9,43 +9,115 @@
     <head>
         <link rel="stylesheet" href="{% static 'style.css' %}">
     </head>
+    
+    <script>
+                window.onload = () => {
+            document.getElementById('register').addEventListener('submit', (e) => {
+                e.preventDefault();
+                var arr = $('#register').serializeArray();
+                var data = {};
 
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr[i].value == "") {
+                        document.getElementById('response').innerHTML = generateAlert(`Please fill in the ${arr[i].name} field.`);
+                        return;
+                    } else {
+                        data[arr[i].name] = arr[i].value;
+                    }
+                }
+                
+                button_disable(true);
+                fetch('/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': data.csrfmiddlewaretoken
+                    },
+                    body: JSON.stringify(data)
+                }).then(res => res.json())
+                .then(data => {
+                    var resElement =  document.getElementById('response');
+                    button_disable(false);
+                    if(data.success) {
+                        resElement.innerHTML = generateAlert(data.message, 'success');
+                        setTimeout(() => {
+                            window.location.href = '/restaurants';
+                        }, 3000);
+                    } else {
+                        resElement.innerHTML = generateAlert(data.message);
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                    button_disable(false);
+                    document.getElementById('response').innerHTML = generateAlert("Something went wrong. Please retry.");
+                });
+            });
+        };
+
+        function button_disable(enable) {
+            var btn = document.getElementById('submit');
+            if (!enable) {
+                btn.disabled = false;
+                btn.classList.replace("btn-info", "btn-light");
+                btn.innerHTML = "Register";
+            } else {
+                btn.disabled = true;
+                btn.classList.replace("btn-light", "btn-info");
+                btn.innerHTML = "Submitting...";
+            }
+        }
+
+        function generateAlert(msg, type='danger') {
+            return `
+            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                <strong> ${msg} </strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            `
+        }
+    </script>
     <body>
         <section>
             <div class="form-box">
                 <div class="form-value">
-                    <form action="#">
+                    <form id="register">
+                        {% csrf_token %}
                         <h2 class="white">Create an account</h2>
                         <div class="inputbox">
                             <ion-icon name="mail-outline"></ion-icon>
                             <span class="icon"></span>
-                            <input type="email" required>
+                            <input type="email" required name="email">
                             <label>Email</label>
                         </div>
                         <div class="inputbox">
                             <ion-icon name="body-outline"></ion-icon>
                             <span class="icon"></span>
-                            <input type="fname" required>
+                            <input type="text" required name="name">
                             <label>Full Name</label>
                         </div>
                         <div class="inputbox">
                             <ion-icon name="body-outline"></ion-icon>
                             <span class="icon"></span>
-                            <input type="fname" required>
+                            <input type="text" required name="username">
                             <label>Username</label>
                         </div>
                         <div class="inputbox">
                             <ion-icon name="lock-closed-outline"></ion-icon>
                             <span class="icon"></span>
-                            <input type="password" required>
+                            <input type="password" required name="password">
                             <label>Create a password</label>
                         </div>
-                        <button>Create account<a href="profile"></a></button>
-                        <br><br>
-                        <div class="forget">
+                        <button type="submit" class="btn btn-light" id="submit">Register</button>
+                        
+                        <div class="forget mt-5">
                             <p>Already have an account? <a href="login">Login</p>
                         </div>
                     </form>
+
+                    <div id="response" class="mt-3 mb-3">
+                        <!-- AJAX response will be inserted here after the form is submitted. -->
+                    </div>
                 </div>
             </div>
         </section>
