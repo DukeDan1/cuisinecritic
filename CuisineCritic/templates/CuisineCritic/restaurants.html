@@ -2,7 +2,7 @@
 {% block title_block %}
     Restaurant page
 {% endblock %} 
-{% load staticfiles %}
+{% load static %}
 
 {% block navbar %}
 <html lang="en" dir="ltr">
@@ -67,24 +67,35 @@
 
     
     <div>
-      <div class="image-container">
+      <div class="container">
+      <div class="row">
         <h3>Chinese</h3>
-        <div class="gallery">
-          <img src="{% static 'images/chinese-photo-1.jpg' %}">
-          <a href="chineseManorHouse"><button>Chinese Manor House- ★★★★★ </button></a>
+        <div class="col">
+          <a href="chineseManorHouse">
+            <div class="card">
+              <img src="{% static 'images/chinese-photo-1.jpg' %}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text">Chinese Manor House- ★★★★★ </p>
+              </div>
+            </div>
+          </a>
         </div>
 
-        <div class="gallery">
-          <img src="{% static 'images/chinese-photo-2.jpg' %}">
-          <a href="shanghaiShuffle"><button>Shanghai Shuffle- ★★★★★ </button></a>
+        <div class="col">
+          <a href="shanghaiShuffle">
+          <img src="{% static 'images/chinese-photo-2.jpg' %}" class="img-thumbnail">
+          <button>Shanghai Shuffle- ★★★★★ </button></a>
         </div>
 
-        <div class="gallery">
-          <img src="{% static 'images/chinese-photo-3.jpg' %}">
-          <a href="luckyStar"><button>Lucky Star- ★★★★★ </button></a>
+        <div class="col">
+          <a href="luckyStar">
+          <img src="{% static 'images/chinese-photo-3.jpg' %}" class="img-thumbnail">
+          <button>Lucky Star- ★★★★★ </button></a>
         </div>
       </div>
     </div>
+
+  </div>
 
     <div>
       <div class="image-container">
