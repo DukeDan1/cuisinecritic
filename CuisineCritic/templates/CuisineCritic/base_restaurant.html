@@ -1,0 +1,153 @@
+{% extends 'CuisineCritic/base.html' %}
+{% block title_block %}
+    {{ restaurant.name }}
+{% endblock %} 
+{% load static %}
+
+{% block navbar %}
+<style>
+    .container {
+        color:black;
+        padding: 1rem;
+    }
+
+    .restaurant {
+        background-color: white;
+    }
+
+    .bg-restaurant-wrapper {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+    }
+
+    .carousel-img, .container  {
+        border-radius: 3px;
+    }
+
+</style>
+<div class="bg-image vh-100" id="background-img-wrap">
+    <nav class="navbar navbar-dark navbar-expand-lg">
+        <div class="container container-fluid">
+            <a class="navbar-brand" href="#">
+                <!-- <img src="https://cuisine.dukedan.uk/somecoollogo.png" alt="" height="40"> !-->
+                Cuisine Critic
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" pa-marked="1">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarColor01">
+                <ul class="navbar-nav">
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="bg-restaurant-wrapper">
+        <div class="container restaurant">
+            {% if success %}
+                {% if restaurant %}
+                    
+
+                    <div class="grid">
+                        <div class="row">
+                            <div class="col">
+                                <h1 class="mb-3">{{ restaurant.name }}</h1>
+                                <p> 
+                                    <b>Rating: </b>
+                                    {% if average_rating %} 
+                                        {{ average_rating }} ★ 
+                                    {% else %}
+                                        No rating yet
+                                    {% endif %}
+                                </p>
+                                <p> <b>Address:</b> {{ restaurant.address }} </p>
+
+
+                                <div class="mt-3">
+                                    <h5>Featured reviews</h5>
+                                    {% if reviews %}
+                                        {% for review in reviews %}
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    {{ review.user.name }}
+                                                </div>
+                                                <div class="card-body">
+                                                    <h6 class="card-title"> {{ review.title }} &amp; {{ review.rating }} ★</h6>
+                                                    <p class="card-text">{{ review.comment }}</p>
+                                                    <p class="card-text"><small class="text-muted">{{ review.likes }} likes</small></p>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p>No reviews yet</p>
+                                    {% endif %}
+                                </div>
+
+                                <button class="btn btn-success" type="button" onclick="$('#review-form-card').slideDown(); $(this).slideUp(); ">Write a review</button>
+
+                                <div class="card" style="display:none" id="review-form-card">
+                                    <div class="card-header">
+                                    Write a review
+                                    </div>
+                                    <div class="card-body">
+                                    <form id="review-form">
+                                        {% csrf_token %}
+                                        Insert form here
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            {% if images %} 
+                            <!-- The image carousel -->
+                                <div class="col">
+                                    <div id="restaurantImageCarousel" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-inner">
+                                            {% for image in images %}
+                                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                                    <img src="{{ image }}" class="d-block w-100 carousel-img" alt="...">
+                                                </div>
+                                            {% endfor %}
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+                                
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+
+                {% else %}
+                    <h1 class="mb-3">Restaurant not found</h1>
+                    <p><a href="/">Return to homepage</a></p>
+                {% endif %}
+            {% else %} 
+                <h1 class="mb-3">{{ reason }}</h1>
+                {% if list_of_restaurants %}
+                    <p>Did you mean one of these restaurants?</p>
+                    <ul>
+                        {% for restaurant in list_of_restaurants %}
+                            <li><a href="/restaurants/{{ restaurant.slug }}">{{ restaurant.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p><a href="/">Return to homepage</a></p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body_block %}
+
+{% endblock %}
