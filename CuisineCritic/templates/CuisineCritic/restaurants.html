@@ -24,7 +24,11 @@
           background: #f2f2f2;
           overflow: auto;
         }
-        
+
+        .row {
+          background-color: white;
+        }
+
       </style>
     </head>
     <body>
@@ -66,14 +70,14 @@
     </div>    
 
     
-    <div>
       <div class="container">
       <div class="row">
         <h3>Chinese</h3>
+
         <div class="col">
           <a href="chineseManorHouse">
             <div class="card">
-              <img src="{% static 'images/chinese-photo-1.jpg' %}" class="card-img-top" alt="...">
+              <img src="{% static 'images/chinese-photo-1.jpg' %}" class="card-img-top">
               <div class="card-body">
                 <p class="card-text">Chinese Manor House- ★★★★★ </p>
               </div>
@@ -83,15 +87,26 @@
 
         <div class="col">
           <a href="shanghaiShuffle">
-          <img src="{% static 'images/chinese-photo-2.jpg' %}" class="img-thumbnail">
-          <button>Shanghai Shuffle- ★★★★★ </button></a>
+            <div class="card">
+              <img src="{% static 'images/chinese-photo-2.jpg' %}" class="card-img-top">
+              <div class="card-body">
+                <p class="card-text">Shanghai Shuffle- ★★★★★ </p>
+              </div>
+            </div>
+            </a>
         </div>
 
         <div class="col">
           <a href="luckyStar">
-          <img src="{% static 'images/chinese-photo-3.jpg' %}" class="img-thumbnail">
-          <button>Lucky Star- ★★★★★ </button></a>
+            <div class="card">
+              <img src="{% static 'images/chinese-photo-3.jpg' %}" class="card-img-top">
+              <div class="card-body">
+                <p class="card-text">Lucky Star- ★★★★★ </p>
+              </div>
+            </div>
+          </a>
         </div>
+
       </div>
     </div>
 

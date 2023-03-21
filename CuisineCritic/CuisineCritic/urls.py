@@ -43,4 +43,7 @@ urlpatterns = [
     path('theMangoTree', views.theMangoTree, name='theMangoTree'),
     path('forgottenPassword', views.forgottenPassword, name='forgottenPassword'),
     path('login/forgottenPassword.html', views.forgottenPassword, name='forgottenPassword'),
+    
+    # API URL endpoints:
+    path('api/login', views.api_login, name='api_login'),
 ]

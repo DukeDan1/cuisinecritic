@@ -1,9 +1,16 @@
+from multiprocessing import AuthenticationError
 from django.http import HttpResponse
 from django.urls import reverse
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
+#from rest_framework.decorators import api_view
+import json
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+from django.views.decorators.csrf import csrf_protect 
+
+
+
 
 def index(request):
     return render(request, 'CuisineCritic/index.html', context={})
@@ -62,3 +69,20 @@ def theMangoTree(request):
 def forgottenPassword(request):
     return render(request, 'CuisineCritic/forgottenPassword.html')
 
+
+# API:
+
+@csrf_protect 
+def api_login(request):
+    if request.method == 'POST':                                                                                                                                                                                                           
+        login_form = LoginForm(request, request.POST)
+        response_data = {}                                                                              
+        if login_form.is_valid():                                                                                                           
+            response_data['success'] = True
+            response_data['message'] = 'Successfully logged in.' 
+        else:
+            response_data['success'] = False
+            response_data['message'] = 'Your username or password is incorrect.'
+
+        return HttpResponse(json.dumps(response_data), content_type="application/json")
+    
