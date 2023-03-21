@@ -62,3 +62,12 @@ def theMangoTree(request):
 def forgottenPassword(request):
     return render(request, 'CuisineCritic/forgottenPassword.html')
 
+def deleteAccount(request):
+    return render(request, 'CuisineCritic/deleteAccount.html')
+
+def addRestaurant(request):
+    return render(request, 'CuisineCritic/addRestaurant.html')
+
+def addRestaurantImages(request):
+    return render(request, 'CuisineCritic/addRestaurantImages.html')
+

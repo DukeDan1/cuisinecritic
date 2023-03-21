@@ -1,0 +1,39 @@
+{% extends 'CuisineCritic/base.html' %}
+{% block title_block %}
+    Create Profile
+{% endblock %} 
+{% load staticfiles %}
+
+{% block body_block %}
+<html lang="en" dir="ltr">
+    <head>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+    </head>
+
+    <body>
+        <section>
+            <div class="form-box">
+                <div class="form-value">
+                    <form action="#">
+                        <h2>Add Up To 4 Images</h2>
+                        <div class="inputbox">
+                            <br><br>
+                            <input type="image" required>
+                            <br><br>
+                            <input type="image" required>
+                            <br><br>
+                            <input type="image" required>
+                            <br><br>
+                            <input type="image" required>
+                        </div>
+
+                        <button>Register (We will send an email once checked!)<a href="index.html"></button>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    </body>
+</html>
+{% endblock %}

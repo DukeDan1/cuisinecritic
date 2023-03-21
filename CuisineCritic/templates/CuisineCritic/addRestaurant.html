@@ -1,0 +1,49 @@
+{% extends 'CuisineCritic/base.html' %}
+{% block title_block %}
+    Create Profile
+{% endblock %} 
+{% load staticfiles %}
+
+{% block body_block %}
+<html lang="en" dir="ltr">
+    <head>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+    </head>
+
+    <body>
+        <section>
+            <div class="form-box">
+                <div class="form-value">
+                    <form action="#">
+                        <h2>Add a Restaurant</h2>
+                        <br><br>
+                        <div class="inputbox">
+                            <input type="text" required>
+                            <label>Please enter the name of your eatery?</label>
+                        </div>
+
+                        <div class="inputbox">
+                            <input type="text" required>
+                            <label>Please enter the full address of your eatery</label>
+                        </div>
+
+                        <div class="inputbox">
+                            <input type="text" required>
+                            <label>Please enter the postcode of your eatery</label>
+                        </div>
+
+                        <div class="inputbox">
+                            <input type="text" required>
+                            <label>What is your cuisine?</label>
+                        </div>
+
+                        <button>Now lets add some photos!<a href="addRestaurantImages"></button>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    </body>
+</html>
+{% endblock %}

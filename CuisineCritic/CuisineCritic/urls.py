@@ -26,6 +26,7 @@ urlpatterns = [
     path('register', views.register, name='register'),
     path('login/register', views.register, name='login/register'),
     path('login/login', views.login, name='login'),
+    path('login/forgottenPassword', views.forgottenPassword, name='forgottenPassword'),
     path('restaurants', views.restaurants, name='restaurants'),
     path('profile', views.profile, name='profile'),
     path('account', views.account, name='account'),
@@ -43,4 +44,7 @@ urlpatterns = [
     path('theMangoTree', views.theMangoTree, name='theMangoTree'),
     path('forgottenPassword', views.forgottenPassword, name='forgottenPassword'),
     path('login/forgottenPassword.html', views.forgottenPassword, name='forgottenPassword'),
+    path('deleteAccount', views.deleteAccount, name="deleteAccount"),
+    path('addRestaurant', views.addRestaurant, name="addRestaurant"),
+    path('addRestaurantImages', views.addRestaurantImages, name="addRestaurantImages"),
 ]
