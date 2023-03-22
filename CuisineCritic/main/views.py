@@ -204,7 +204,24 @@ def api_register(request):
 
 @csrf_protect
 def api_search(request):
-    pass
+    if request.method == "POST":
+        query = request.POST.get('query')
+        if query:
+            try:
+                restaurants = Restaurant.objects.filter(name__icontains=query)
+                if restaurants and len(restaurants) > 0:
+                    restaurants_array = [{"slug": x.slug, "name":x.name} for x in restaurants]
+                    return HttpResponse(json.dumps({"message": "Search results found.", "success":True, "restaurants": restaurants_array}), content_type="application/json")
+                else:
+                    return HttpResponse(json.dumps({"message": "No search results found.", "success":False}), content_type="application/json")
+            except Exception as e:
+                print(e)
+                return HttpResponse(json.dumps({"message": "An unknown error occurred.", "success":False}), content_type="application/json")
+            
+        else:
+            return HttpResponse(json.dumps({"message": "Please provide a search query.", "success":False}), content_type="application/json")
+    else:
+        return HttpResponse(json.dumps({"message": "This endpoint only accepts POST requests.", "success":False}), content_type="application/json")
 
 @csrf_protect
 def api_create_restaurant(request):

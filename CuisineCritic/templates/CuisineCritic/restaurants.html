@@ -74,6 +74,86 @@
 
 
 </style>
+
+<script>
+    window.onload = () => {
+        document.getElementById('search').addEventListener('submit', (e) => {
+            e.preventDefault();
+            let search = document.getElementById('query').value;
+            
+            var response = document.getElementById('search-response');
+            if (search == "") {
+                //send_search_alert("Please enter a search term.");
+            } else {
+                // fetch /api/search
+                fetch('/api/search', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': document.querySelector(["[name=csrfmiddlewaretoken]"]).value
+                    },
+                    body: new FormData(document.getElementById("search")),
+                })
+                .then(res => res.json())
+                .then(res => {
+                    if(res.success) {
+                        // display results
+                        var html = "We found the following restaurant(s):";
+                        html += `<ul class="list-group mt-3">`;
+                        for (var i = 0; i < res.restaurants.length; i++) {
+                            html += `<li class="list-group-item"><a href="/restaurants/${res.restaurants[i].slug}">${res.restaurants[i].name}</a></li>`;
+                        }
+                        html += `</ul>`;
+                        send_search_alert(html, false);
+                        
+                    } else {
+                        send_search_alert(res.message);
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                    send_search_alert("An unexpected error occurred.");
+                })
+            }
+        });
+    };
+
+    function send_search_alert(html, danger=true) {
+        if (danger) {
+            html = `<span class="text-danger">${html}</span>`;
+        }
+        document.getElementById('search-response').innerHTML = html;
+
+        var modal = new bootstrap.Modal(document.getElementById("search-modal"), {});
+        modal.show();
+
+        if(danger) {
+            setTimeout(
+                function() {
+                    modal.hide();
+                }, 2000
+            )
+        }
+    }
+</script>
+
+<div class="modal fade" id="search-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="search-modal-title" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="search-modal-title" data-fontsize="20" data-lineheight="30px" style="--fontSize: 20; line-height: 1.5; --minFontSize: 20;">Search results</h5>
+                <button type="button" id="modal-close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="search-response"></div>
+            </div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="close-modal">Close</button>
+			</div>      
+		</div>
+	</div>
+</div>
+
+
 <div class="bg-image" id="background-img-wrap">
     <nav class="navbar navbar-dark navbar-expand-lg">
         <div class="container container-fluid">
@@ -119,12 +199,19 @@
     <div class="bg-restaurant-wrapper">
         <div class="container fluid">
             <div class="search-container">
-                <form action="" class="search-bar">
-                  <input type="text" placeholder="Search for a restaurant" name="q">
-                  <button type="submit"></button>
+                <form class="search-bar" id="search">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Search for a restaurant" id="query" name="query">
+                    <button type="submit" class="btn btn-light"><i class="fas fa-search"></i></button>
                 </form>
-              </div>   
+
+            </div>   
+            {% if user.is_authenticated %}
+                <div class="text-light text-center mt-3 w-100">Own a restaurant? <a href="#">Click here to add it</a></div>
+            {% endif %}
         </div>
+
+
         <div class="container restaurant">
             {% if success %}
                 <div class="grid">
