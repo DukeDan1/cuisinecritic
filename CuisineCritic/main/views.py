@@ -105,8 +105,19 @@ def render_restaurant(request, restaurant_id):
         return render(request, 'CuisineCritic/base_restaurant.html', context={'success':False, "reason": "An unknown error occurred"})
 
 
+def restaurant_list(request):
+    try:
+        categories = Category.objects.all()
+        for x in categories:
+            x.restaurants = Restaurant.objects.filter(category=x)[:3]
+            for y in x.restaurants:
+                y.image = RestaurantImage.objects.filter(restaurant=y)[0].image_src.url
 
-
+        context_dict = {"categories": categories, 'success': True}
+        return render(request, 'CuisineCritic/restaurants.html', context=context_dict)
+    except Exception as e:
+        print(e)
+        return render(request, 'CuisineCritic/restaurants.html', context={'success':False, "reason": "An unknown error occurred"})
 # API:
 
 @csrf_protect 

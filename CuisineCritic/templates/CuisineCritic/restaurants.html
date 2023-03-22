@@ -1,41 +1,73 @@
 {% extends 'CuisineCritic/base.html' %}
 {% block title_block %}
-    Restaurant page
+    Featured restaurants
 {% endblock %} 
 {% load static %}
 
 {% block navbar %}
-<html lang="en" dir="ltr">
-    <head>
-      <link rel="stylesheet" href="{% static 'style.css' %}">
-      <title>Restaurants</title>
-      <style>
-        *{
-          box-sizing: border-box;
-        }
-        body{
-          margin: 0;
-          background: url("https://media.istockphoto.com/id/545286388/photo/chinese-food-blank-background.jpg?s=612x612&w=0&k=20&c=pqOIy07YKO5PlU5VxjscwTGRrrZ8PluKMUjSOz-II60=");
-        }
-        
-        .image-container{
-          max-width: 1200px;
-          margin: auto;
-          background: #f2f2f2;
-          overflow: auto;
-        }
+<style>
+    .container {
+        color:black;
+        padding: 1rem;
+        border-radius: 3px;
+    }
 
-        .row {
-          background-color: white;
-        }
+    .restaurant {
+        background-color: white;
+    }
 
-      </style>
-    </head>
-    <body>
-    <div class="bg-image vh-100" id="background-img-wrap">
+    .restaurant-image {
+        height:12rem;
+        object-fit: cover;
+    }
+
+    .restaurant-link {
+        color: black;
+        text-decoration: none;
+    }
+
+    .search-container{
+    width: 100%;
+    min-height: 80vh;
+    padding: 5%;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -30%;
+  }
+  .search-bar{
+    width: 100%;
+    max-width: 700px;
+    background: white;
+    display: flex;
+    align-items: center;
+    border-radius: 60px;
+    padding: 10px 20px;
+
+  }
+  .search-bar input{
+    background: transparent;
+    flex: 1;
+    border: 0;
+    outline: none;
+    padding: 24px 20px;
+    font-size: 20px;
+    color: black;
+  }
+
+  .category-name {
+    font-family: "Bebas Neue";
+  }
+
+
+</style>
+<div class="bg-image" id="background-img-wrap">
     <nav class="navbar navbar-dark navbar-expand-lg">
         <div class="container container-fluid">
             <a class="navbar-brand" href="#">
+                <!-- <img src="https://cuisine.dukedan.uk/somecoollogo.png" alt="" height="40"> !-->
                 Cuisine Critic
             </a>
 
@@ -45,139 +77,62 @@
 
             <div class="collapse navbar-collapse justify-content-end" id="navbarColor01">
                 <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#" pa-marked="1">Home
-                        <span class="visually-hidden">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href='account' pa-marked="1">Account</a>
-              </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
 
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/restaurants">Restaurants</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account">Account</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <br></br>
-    <br></br>
-    <br></br>
 
-    <div class="search-container">
-      <form action="" class="search-bar">
-        <input type="text" placeholder="Search a place or cuisine" name="q">
-        <button type="submit"></button>
-      </form>
-    </div>    
 
-    
-      <div class="container">
-      <div class="row">
-        <h3>Chinese</h3>
-
-        <div class="col">
-          <a href="chineseManorHouse">
-            <div class="card">
-              <img src="{% static 'images/chinese-photo-1.jpg' %}" class="card-img-top">
-              <div class="card-body">
-                <p class="card-text">Chinese Manor House- ★★★★★ </p>
-              </div>
-            </div>
-          </a>
+    <div class="bg-restaurant-wrapper">
+        <div class="container fluid">
+            <div class="search-container">
+                <form action="" class="search-bar">
+                  <input type="text" placeholder="Search for a restaurant" name="q">
+                  <button type="submit"></button>
+                </form>
+              </div>   
         </div>
-
-        <div class="col">
-          <a href="shanghaiShuffle">
-            <div class="card">
-              <img src="{% static 'images/chinese-photo-2.jpg' %}" class="card-img-top">
-              <div class="card-body">
-                <p class="card-text">Shanghai Shuffle- ★★★★★ </p>
-              </div>
-            </div>
-            </a>
+        <div class="container restaurant">
+            {% if success %}
+                <div class="grid">
+                    {% for category in categories %}
+                    <div class="row mt-3">
+                        <h5 class="category-name">{{ category.name }}</h5>
+                        {% for restaurant in category.restaurants %}
+                            <div class="col">
+                                <a href="/restaurants/{{ restaurant.slug }}" class="restaurant-link">
+                                <div class="card">
+                                    <img src="{{ restaurant.image }}" class="card-img-top restaurant-image">
+                                    <div class="card-body">
+                                    <p class="card-text"> {{ restaurant.name }} </p>
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <h1 class="text-danger">{{ reason }}</h1>
+            {% endif %}
         </div>
-
-        <div class="col">
-          <a href="luckyStar">
-            <div class="card">
-              <img src="{% static 'images/chinese-photo-3.jpg' %}" class="card-img-top">
-              <div class="card-body">
-                <p class="card-text">Lucky Star- ★★★★★ </p>
-              </div>
-            </div>
-          </a>
-        </div>
-
-      </div>
+        <div style="height: 50px;"></div>
     </div>
+</div>
 
-  </div>
-
-    <div>
-      <div class="image-container">
-        <h3>Indian</h3>
-        <div class="gallery">
-          <img src="{% static 'images/indian-photo-1.jpg' %}">
-          <a href="alessi"><button>Alessi- ★★★★★ </button></a>
-        </div>
-
-        <div class="gallery">
-          <img src="{% static 'images/indian-photo-2.jpg' %}">
-          <a href="bombayBanquet"><button>Bombay Banquet- ★★★★★ </button></a>
-        </div>
-
-        <div class="gallery">
-          <img src="{% static 'images/indian-photo-3.jpg' %}">
-          <a href="easternPavilion"><button>Eastern Pavilion- ★★★★★ </button></a>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <div class="image-container">
-        <h3>Mexican</h3>
-        <div class="gallery">
-          <img src="{% static 'images/mexican-photo-1.jpg' %}">
-          <a href="topolobamba"><button>Topolobamba- ★★★★★ </button></a>
-        </div>
-
-        <div class="gallery">
-          <img src="{% static 'images/mexican-photo-2.jpg' %}">
-          <a href="elPastor"><button>El Pastor- ★★★★★ </button></a>
-        </div>
-
-        <div class="gallery">
-          <img src="{% static 'images/mexican-photo-3.jpg' %}">
-          <a href="wahaca"><button>Wahaca- ★★★★★ </button></a>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <div class="image-container">
-        <h3>Thai</h3>
-        <div class="gallery">
-          <img src="{% static 'images/thai-photo-1.jpg' %}">
-          <a href="phucket"><button>Phucket- ★★★★★ </button></a>
-        </div>
-
-        <div class="gallery">
-          <img src="{% static 'images/thai-photo-2.jpg' %}">
-          <a href="kaoSarn"><button>Kao Sarn- ★★★★★ </button></a>
-        </div>
-
-        <div class="gallery">
-          <img src="{% static 'images/thai-photo-3.jpg' %}">
-          <a href="theMangoTree"><button>The Mango Tree- ★★★★★ </button></a>
-            <br></br>
-            <br></br>
-        </div>
-      </div>
-    </div>
-
-    </body>
-</html>
 {% endblock %}
 
-
-
-
+{% block body_block %}
+{% endblock %}
