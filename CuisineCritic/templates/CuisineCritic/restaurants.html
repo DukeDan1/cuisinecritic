@@ -108,7 +108,7 @@
                 <div class="grid">
                     {% for category in categories %}
                     <div class="row mt-3">
-                        <h5 class="category-name">{{ category.name }}</h5>
+                        <h4 class="category-name">{{ category.name }}</h4>
                         {% for restaurant in category.restaurants %}
                             <div class="col">
                                 <a href="/restaurants/{{ restaurant.slug }}" class="restaurant-link">
