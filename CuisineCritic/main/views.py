@@ -13,6 +13,7 @@ from .models import *
 from django.db.models import Avg
 from .forms import Registration
 from django.contrib.auth.forms import UserCreationForm
+import random
 
 
 
@@ -89,17 +90,22 @@ def render_restaurant(request, restaurant_id):
     try:
         restaurant = Restaurant.objects.get(slug=restaurant_id)
 
-        # Get all reviews for the restaurant, if any
+        # Get all reviews for the restaurant, if any, then select to show randomly
         reviews = Review.objects.filter(restaurant=restaurant)
+        n = len(reviews)
+        if n > 3: n = 3
+        selected_reviews = set()
+        while len(selected_reviews) < n:
+            selected_reviews.add(random.choice(reviews))
 
         # Get the average rating for the restaurant
-        average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
-        print(average_rating)
+        average_rating = round(reviews.aggregate(Avg('rating'))['rating__avg'], 1)
+        
 
         # Get all of the images for this restaurant, if any
         images = RestaurantImage.objects.filter(restaurant=restaurant)
 
-        context_dict = {"restaurant": restaurant, "reviews": reviews[:3], "average_rating": average_rating, 'success': True}
+        context_dict = {"restaurant": restaurant, "reviews": selected_reviews, "average_rating": average_rating, 'success': True}
         
         context_dict["images"] = []
 
@@ -221,4 +227,27 @@ def api_create_restaurant(request):
     else: return HttpResponse(json.dumps({"message": "This endpoint only accepts POST requests.", "success":False}), content_type="application/json")
 
 def api_submit_review(request):
-    pass
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            try:
+                restaurant = Restaurant.objects.get(restaurant_id=request.POST.get('restaurant'))
+                user = UserProfile.objects.get(user=request.user)
+                rating = request.POST.get('review-rating')
+                title = request.POST.get('review-title')
+                comment = request.POST.get('review-comment')
+
+                print(user, rating, title, comment)
+
+                if restaurant and user and rating and title and comment:
+                    r = Review(restaurant=restaurant, user=user, rating=rating, title=title, comment=comment)
+                    r.save()
+                else:
+                    return HttpResponse(json.dumps({"message": "Please fill out all fields.", "success": False}), content_type="application/json")
+                
+                return HttpResponse(json.dumps({"message": "Review submitted successfully.", "success": True}), content_type="application/json")
+            except Exception as e:
+                print(e)
+                return HttpResponse(json.dumps({"message": "Unable to submit review. Please try again.", "success": False}), content_type="application/json")
+        else: return HttpResponse(json.dumps({"message": "You must be logged in in order to submit a review.", "success":False}), content_type="application/json")
+    else: return HttpResponse(json.dumps({"message": "This endpoint only accepts POST requests.", "success":False}), content_type="application/json")
+       

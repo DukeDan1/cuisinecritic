@@ -21,18 +21,3 @@ class Registration(forms.ModelForm):
 			user.save()
 		return user
 
-# class Registration(UserCreationForm):
-# 	email = forms.EmailField(required=True)
-
-# 	class Meta:
-# 		model = UserProfile
-# 		fields = ("email", "name", "password", )
-
-# 	def save(self, commit=True):
-# 		user = super(Registration, self).save(commit=False)
-# 		user.email = self.cleaned_data['email']
-# 		user.name = self.cleaned_data['name']
-# 		user.avatar_src = self.cleaned_data['avatar_src']
-# 		if commit:
-# 			user.save()
-# 		return user

@@ -58,5 +58,5 @@ urlpatterns = [
     path('api/register', views.api_register, name='api_register'),
     path('api/search', views.api_search, name='api_search'),
     path('api/createRestaurant', views.api_create_restaurant, name='api_create_restaurant'),
-    path('api/submitReview', views.api_submit_review, name='api_submit_review'),
+    path('api/review', views.api_submit_review, name='api_submit_review'),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

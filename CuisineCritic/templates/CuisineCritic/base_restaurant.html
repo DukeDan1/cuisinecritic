@@ -11,43 +11,115 @@
 {% block navbar %}
 
 {% if user.is_authenticated %}
+<script>
+    window.onload = () => {
+        document.getElementById('review-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            button_disable(true);
+            fetch('/api/review', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': document.querySelector(["[name=csrfmiddlewaretoken]"]).value
+                },
+                body: new FormData(document.getElementById("review-form")),
+            }).then(res => res.json())
+            .then(data => {
+                var resElement =  document.getElementById('response');
+                
+                if(data.success) {
+                    resElement.innerHTML = generateAlert(data.message, 'success');
+                    document.getElementById('submit').classList.replace('btn-info', 'btn-success');
+                    document.getElementById('submit').innerHTML = 'Submitted';
+                    document.getElementById('close-modal').innerHTML = "Close";
+                    document.getElementById('close-modal').classList.replace('btn-danger', 'btn-primary');
+                } else {
+                    button_disable(false);
+                    resElement.innerHTML = generateAlert(data.message);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                button_disable(false);
+                document.getElementById('response').innerHTML = generateAlert("Something went wrong. Please retry.");
+            });
+        });
+
+        function button_disable(enable) {
+            var btn = document.getElementById('submit');
+            if (!enable) {
+                btn.disabled = false;
+                btn.classList.replace("btn-info", "btn-success");
+                btn.innerHTML = "Submit";
+            } else {
+                btn.disabled = true;
+                btn.classList.replace("btn-success", "btn-info");
+                btn.innerHTML = "Submitting...";
+            }
+        }
+
+        function generateAlert(msg, type='danger') {
+            return `
+            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                <strong> ${msg} </strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            `
+        }
+
+        window.enabled_form = false;
+        document.querySelectorAll("input").forEach((input) => {
+            input.addEventListener("keyup", (e) => {
+                if(!window.enabled_form) {
+                    document.getElementById('submit').disabled = false;
+                    window.enabled_form = true;
+                }
+            });
+        });
+    };
+ </script>
+
 <div class="modal fade" id="review-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="review-modal-title" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="review-modal-title" data-fontsize="20" data-lineheight="30px" style="--fontSize: 20; line-height: 1.5; --minFontSize: 20;">Enter a review code</h5>
-				<button type="button" id="modal-close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<form id="review-form">
-                    {% csrf_token %}
-                    <input type="hidden" name="restaurant" value="{{ restaurant.id }}" />
-                    <input type="hidden" name="user" value="{{ user.id }}" />
+            <form id="review-form">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="review-modal-title" data-fontsize="20" data-lineheight="30px" style="--fontSize: 20; line-height: 1.5; --minFontSize: 20;">Write a review</h5>
+                    <button type="button" id="modal-close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <input type="hidden" name="restaurant" value="{{ restaurant.restaurant_id }}" />
                     
 
 					<div class="form-floating">
-						<input type="text" class="form-control" name id="review-title" placeholder="Enter review title" required>
-						<label for="review-title">review title</label>
+						<input type="text" class="form-control" name="review-title" id="review-title" placeholder="Enter review title" required>
+						<label for="review-title">Title</label>
 					</div>
 
-                    <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" name id="review-comment" style="height: 100px" required></textarea>
+                    <div class="form-floating mt-3">
+                        <textarea class="form-control" placeholder="Leave a comment here" name="review-comment" id="review-comment" style="height: 150px" required></textarea>
                         <label for="review-comment">Comment</label>
                     </div>
 
-                    <label for="review-rating" class="form-label">Rating</label>
-                    <input type="range" class="form-range" min="1" max="5" step="0.5" id="review-rating" required>
+                    <label for="review-rating mt-3" class="form-label">Rating (1 to 5)</label>
+                    <input type="range" class="form-range" min="1" max="5" step="0.5" id="review-rating" name="review-rating" required>
                     
-                    <label class="form-label" for="review-image">Upload an image </label>
-                    <input type="file" class="form-control" id="review-image" accept="image/png, image/jpeg, image/gif" />
+                    <label class="form-label mt-3" for="review-image">Upload an image (optional) </label>
+                    <input type="file" class="form-control" id="review-image" name="review-image" accept="image/png, image/jpeg, image/gif" />
+                    <div id="response" class="mt-3 mb-3">
+                        <!-- AJAX response will be inserted here when the form is submitted. -->
+                    </div>
 
-					<div class="text-danger mt-1" id="review-error"></div>
-			</form></div>
+                
+            </div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-				<button type="submit" class="btn btn-success" id="review-submit" disabled="">Apply review</button>
+				<button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="close-modal">Cancel</button>
+				<button type="submit" class="btn btn-success" id="submit" disabled="">Submit</button>
 				
 			</div>
+        </form>
       
 		</div>
 	</div>
@@ -82,6 +154,10 @@
             margin-top:30px;
             margin-bottom:10px;
         }
+    }
+
+    .card {
+        min-width: 24rem;
     }
 
 </style>
@@ -132,8 +208,6 @@
         <div class="container restaurant">
             {% if success %}
                 {% if restaurant %}
-                    
-
                     <div class="grid">
                         <div class="row">
                             <div class="col">
@@ -149,31 +223,11 @@
                                 <p> <b>Address:</b> {{ restaurant.address }} </p>
                                 <p> <b>Category:</b> {{ restaurant.category.name }}</p>
 
-
-                                <div class="mt-3">
-                                    <h5>Featured reviews</h5>
-                                    {% if reviews %}
-                                        {% for review in reviews %}
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    {{ review.user.name }}
-                                                </div>
-                                                <div class="card-body">
-                                                    <h6 class="card-title"> {{ review.title }} &amp; {{ review.rating }} ★</h6>
-                                                    <p class="card-text">{{ review.comment }}</p>
-                                                    <p class="card-text"><small class="text-muted">{{ review.likes }} likes</small></p>
-                                                </div>
-                                            </div>
-                                        {% endfor %}
-                                    {% else %}
-                                        <p>No reviews yet</p>
-                                    {% endif %}
-                                </div>
-
                                 {% if user.is_authenticated %}
-                                <button class="btn btn-success" type="button" id="review-modal-label" data-bs-toggle="modal" data-bs-target="#review-modal">Write a review</button>
+                                    <button class="btn btn-success" type="button" id="review-modal-label" data-bs-toggle="modal" data-bs-target="#review-modal">Write a review</button>
+                                {% else %}
+                                    <p> <a href="/login">Log in</a> or <a href="/register">create an account</a> to leave a review.</p>
                                 {% endif %}
-
             
                             </div>
                         
@@ -187,6 +241,7 @@
                                                     <img src="{{ image }}" class="d-block w-100 carousel-img" alt="...">
                                                 </div>
                                             {% endfor %}
+                                        </div>
                                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Previous</span>
@@ -196,12 +251,39 @@
                                         <span class="visually-hidden">Next</span>
                                         </button>
                                     </div>
-                                
                                 </div>
                             {% endif %}
 
                         </div>
+                    
+                        
+
+                        <div class="row">
+                            <div class="mt-3">
+                                <h5>Featured reviews</h5>
+                                {% if reviews %}
+                                    {% for review in reviews %}
+                                    <div class="col">
+                                        <div class="card mt-3 mb-3">
+                                            <div class="card-header">
+                                                {{ review.user.name }}
+                                            </div>
+                                            <div class="card-body">
+                                                <h6 class="card-title"><b> {{ review.title }} &#8212; {{ review.rating }} ★</b></h6>
+                                                <p class="card-text">{{ review.comment }}</p>
+                                                <p class="card-text"><small class="text-muted">{{ review.likes }} likes</small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <p>No reviews yet</p>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
+
+
 
                 {% else %}
                     <h1 class="mb-3">Restaurant not found</h1>
