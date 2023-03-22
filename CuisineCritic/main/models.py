@@ -4,12 +4,10 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
 class UserProfile(models.Model):
-    user_id = models.AutoField(max_length=50, primary_key=True)
-    forename = models.CharField(max_length=50)
-    surname = models.CharField(max_length=50)
-    email = models.CharField(max_length=200)
-    avatar_src = models.CharField(max_length=200)
-    password = models.CharField(max_length=200)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    name = models.CharField(max_length=50)
+    email = models.CharField(max_length=200, unique=True)
+    avatar_src = models.ImageField(upload_to='media', blank=True, null=True)
 
 class Category(models.Model):
     category_id = models.AutoField(max_length=50, primary_key=True)

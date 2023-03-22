@@ -1,6 +1,6 @@
 {% extends 'CuisineCritic/base.html' %}
 {% block title_block %}
-    Loginpage
+    Log inpage
 {% endblock %} 
 {% load static %}
 
@@ -23,36 +23,25 @@
         window.onload = () => {
             document.getElementById('login').addEventListener('submit', (e) => {
                 e.preventDefault();
-                var arr = $('#login').serializeArray();
-                var data = {};
 
-                for (var i = 0; i < arr.length; i++) {
-                    if (arr[i].value == "") {
-                        document.getElementById('response').innerHTML = generateAlert(`Please fill in the ${arr[i].name} field.`);
-                        return;
-                    } else {
-                        data[arr[i].name] = arr[i].value;
-                    }
-                }
                 
                 button_disable(true);
                 fetch('/api/login', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': data.csrfmiddlewaretoken
+                        'X-CSRFToken': document.querySelector(["[name=csrfmiddlewaretoken]"]).value
                     },
-                    body: JSON.stringify(data)
+                    body: new FormData(document.getElementById("login")),
                 }).then(res => res.json())
                 .then(data => {
                     var resElement =  document.getElementById('response');
-                    button_disable(false);
                     if(data.success) {
                         resElement.innerHTML = generateAlert(data.message, 'success');
                         setTimeout(() => {
                             window.location.href = '/restaurants';
-                        }, 3000);
+                        }, 500);
                     } else {
+                        button_disable(false);
                         resElement.innerHTML = generateAlert(data.message);
                     }
                 })
@@ -92,7 +81,7 @@
                 <div class="form-value">
                     <form id="login">
                         {% csrf_token %}
-                        <h2>Login</h2>
+                        <h2>Log in</h2>
                         <div class="inputbox">
                             <ion-icon name="mail-outline"></ion-icon>
                             <span class="icon"></span>

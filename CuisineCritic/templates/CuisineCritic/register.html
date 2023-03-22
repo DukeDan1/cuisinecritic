@@ -11,29 +11,19 @@
     </head>
     
     <script>
-                window.onload = () => {
+        window.onload = () => {
+            form_fixer();
+
             document.getElementById('register').addEventListener('submit', (e) => {
                 e.preventDefault();
-                var arr = $('#register').serializeArray();
-                var data = {};
-
-                for (var i = 0; i < arr.length; i++) {
-                    if (arr[i].value == "") {
-                        document.getElementById('response').innerHTML = generateAlert(`Please fill in the ${arr[i].name} field.`);
-                        return;
-                    } else {
-                        data[arr[i].name] = arr[i].value;
-                    }
-                }
                 
                 button_disable(true);
                 fetch('/api/register', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': data.csrfmiddlewaretoken
+                        'X-CSRFToken': document.querySelector(["[name=csrfmiddlewaretoken]"]).value
                     },
-                    body: JSON.stringify(data)
+                    body: new FormData(document.getElementById("register")),
                 }).then(res => res.json())
                 .then(data => {
                     var resElement =  document.getElementById('response');
@@ -76,14 +66,34 @@
             </div>
             `
         }
+
+        function form_fixer() {
+            // Add bootstrap classes to form elements
+            var elements = document.getElementsByTagName('input');
+            var label;
+            for (var i = 0; i < elements.length; i++) {
+                if (elements[i].type == 'text' || elements[i].type == 'password' || elements[i].type == "email") {
+                    elements[i].classList.add('form-control', 'mt-3', 'mb-3');
+                    label = document.querySelector(`[for="${elements[i].id}"]`);
+                    elements[i].placeholder = label.innerHTML.replace(":", "");
+                    label.remove();
+                }
+            }
+
+            Array.from(document.getElementsByClassName('helptext')).forEach(e => e.classList.add('d-none', 'text-light'));
+            Array.from(document.querySelector('#register').getElementsByTagName("br")).forEach(e => e.remove());
+        }
     </script>
     <body>
         <section>
-            <div class="form-box">
+            <div class="form-box text-light">
                 <div class="form-value">
                     <form id="register">
-                        {% csrf_token %}
                         <h2 class="white">Create an account</h2>
+                        {% csrf_token %}
+                        {{ login_form }}
+                        {{ register_form }}  
+                        <!--
                         <div class="inputbox">
                             <ion-icon name="mail-outline"></ion-icon>
                             <span class="icon"></span>
@@ -107,17 +117,17 @@
                             <span class="icon"></span>
                             <input type="password" required name="password">
                             <label>Create a password</label>
+                        </div> -->
+                        <button type="submit" class="btn btn-light mt-5" id="submit">Register</button>
+                        <div id="response" class="mt-3 mb-3">
+                            <!-- AJAX response will be inserted here after the form is submitted. -->
                         </div>
-                        <button type="submit" class="btn btn-light" id="submit">Register</button>
-                        
                         <div class="forget mt-5">
-                            <p>Already have an account? <a href="login">Login</p>
+                            <p>Already have an account? <a href="login">Log in</a></p>
                         </div>
                     </form>
 
-                    <div id="response" class="mt-3 mb-3">
-                        <!-- AJAX response will be inserted here after the form is submitted. -->
-                    </div>
+
                 </div>
             </div>
         </section>

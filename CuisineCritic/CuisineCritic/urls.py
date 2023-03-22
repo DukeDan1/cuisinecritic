@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('login/', views.login, name='login'),
+    path('login/', views.login_page, name='login'),
     path('register', views.register, name='register'),
     path('login/register', views.register, name='login/register'),
     path('login/login', views.login, name='login'),
@@ -32,6 +32,7 @@ urlpatterns = [
     path('account', views.account, name='account'),
     path('forgottenPassword', views.forgottenPassword, name='forgottenPassword'),
      path('login/forgottenPassword.html', views.forgottenPassword, name='forgottenPassword'),
+    path('logout', views.logout_page, name='logout'),
 
 
     # Replaced by automated restaurant pages:
