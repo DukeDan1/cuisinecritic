@@ -33,7 +33,7 @@ class RestaurantImage(models.Model):
     image_src = models.ImageField(upload_to='media')
 
 class Review(models.Model):
-    review_id = models.CharField(max_length=50, primary_key=True)
+    review_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     rating = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)])

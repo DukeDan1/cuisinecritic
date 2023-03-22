@@ -9,6 +9,51 @@
 {% load static %}
 
 {% block navbar %}
+
+{% if user.is_authenticated %}
+<div class="modal fade" id="review-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="review-modal-title" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="review-modal-title" data-fontsize="20" data-lineheight="30px" style="--fontSize: 20; line-height: 1.5; --minFontSize: 20;">Enter a review code</h5>
+				<button type="button" id="modal-close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="review-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="restaurant" value="{{ restaurant.id }}" />
+                    <input type="hidden" name="user" value="{{ user.id }}" />
+                    
+
+					<div class="form-floating">
+						<input type="text" class="form-control" name id="review-title" placeholder="Enter review title" required>
+						<label for="review-title">review title</label>
+					</div>
+
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" name id="review-comment" style="height: 100px" required></textarea>
+                        <label for="review-comment">Comment</label>
+                    </div>
+
+                    <label for="review-rating" class="form-label">Rating</label>
+                    <input type="range" class="form-range" min="1" max="5" step="0.5" id="review-rating" required>
+                    
+                    <label class="form-label" for="review-image">Upload an image </label>
+                    <input type="file" class="form-control" id="review-image" accept="image/png, image/jpeg, image/gif" />
+
+					<div class="text-danger mt-1" id="review-error"></div>
+			</form></div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+				<button type="submit" class="btn btn-success" id="review-submit" disabled="">Apply review</button>
+				
+			</div>
+      
+		</div>
+	</div>
+</div>
+{% endif %}
+
 <style>
     .container {
         color:black;
@@ -112,19 +157,11 @@
                                     {% endif %}
                                 </div>
 
-                                <button class="btn btn-success" type="button" onclick="$('#review-form-card').slideDown(); $(this).slideUp(); ">Write a review</button>
+                                {% if user.is_authenticated %}
+                                <button class="btn btn-success" type="button" id="review-modal-label" data-bs-toggle="modal" data-bs-target="#review-modal">Write a review</button>
+                                {% endif %}
 
-                                <div class="card" style="display:none" id="review-form-card">
-                                    <div class="card-header">
-                                    Write a review
-                                    </div>
-                                    <div class="card-body">
-                                    <form id="review-form">
-                                        {% csrf_token %}
-                                        Insert form here
-                                    </form>
-                                    </div>
-                                </div>
+            
                             </div>
                         
                             {% if images %} 
@@ -177,3 +214,4 @@
 {% block body_block %}
 
 {% endblock %}
+
