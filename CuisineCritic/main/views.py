@@ -166,6 +166,21 @@ def redirect_restaurant(request):
     return redirect("/restaurants")
 
 
+def add_restaurant(request):
+    if not request.user.is_authenticated:
+        return redirect("/restaurants")
+    else:
+        try:
+            categories = Category.objects.all()
+            context_dict = {"categories": categories, 'success': True}
+            return render(request, 'CuisineCritic/addRestaurant.html', context=context_dict)
+        except Exception as e:
+            print(e)
+            return render(request, 'CuisineCritic/addRestaurant.html', context={'success':False, "reason": "An unknown error occurred"})
+
+        
+
+
 def account(request):
     if not request.user.is_authenticated:
         return redirect("/login")

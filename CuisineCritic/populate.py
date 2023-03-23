@@ -165,8 +165,7 @@ reviews = [
 def add_restaurants():
     for x in restaurants:
         try:
-            category_slug = slugify(x['Category'])
-            c = Category.objects.get_or_create(name=x['Category'], slug=category_slug)[0]
+            c = Category.objects.get_or_create(name=x['Category'])[0]
             c.save()
             
             r = Restaurant.objects.get_or_create(name=x['Name'], address=x['Address'], category=c)[0]

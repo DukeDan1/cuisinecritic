@@ -15,6 +15,10 @@ class Category(models.Model):
     slug = models.SlugField(unique=True)
     # image_src = models.ImageField(upload_to='media', blank=True, null=True) Removed for now
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
+
 class Restaurant(models.Model):
     restaurant_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200)
