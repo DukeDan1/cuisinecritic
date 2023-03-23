@@ -7,7 +7,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     name = models.CharField(max_length=50)
     email = models.CharField(max_length=200, unique=True)
-    avatar_src = models.ImageField(upload_to='media', blank=True, null=True)
+    avatar_src = models.ImageField(upload_to='users', blank=True, null=True)
 
 class Category(models.Model):
     category_id = models.AutoField(max_length=50, primary_key=True)
@@ -33,7 +33,7 @@ class Restaurant(models.Model):
 class RestaurantImage(models.Model):
     image_id = models.AutoField(primary_key=True)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
-    image_src = models.ImageField(upload_to='media')
+    image_src = models.ImageField(upload_to='restaurants')
 
 class Review(models.Model):
     review_id = models.AutoField(primary_key=True)
@@ -43,4 +43,4 @@ class Review(models.Model):
     title = models.CharField(max_length=200)
     comment = models.CharField(max_length=2000)
     # likes = models.IntegerField(default=0) Removed for now
-    image_src = models.ImageField(upload_to='media', null=True, blank=True)
+    #image_src = models.ImageField(upload_to='reviews', null=True, blank=True) Goodbye for now

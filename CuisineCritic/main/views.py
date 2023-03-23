@@ -34,7 +34,9 @@ def logout_page(request):
     else: return redirect(reverse("index"))
 
 def register(request):
-	return render (request, template_name="CuisineCritic/register.html", context={"register_form":Registration(), "login_form":UserCreationForm()})
+    if request.user.is_authenticated:
+        return redirect("/account")
+    return render (request, template_name="CuisineCritic/register.html", context={"register_form":Registration(), "login_form":UserCreationForm()})
 
 def restaurants(request):
     return render(request, 'CuisineCritic/restaurants.html')
@@ -322,8 +324,6 @@ def api_create_restaurant(request):
         address = request.POST.get('address')
         category = request.POST.get('category')
 
-        # get images
-
 
         try:
             r = Restaurant(name=name, address=address, category=category)
@@ -335,6 +335,29 @@ def api_create_restaurant(request):
         
     else: return HttpResponse(json.dumps({"message": "This endpoint only accepts POST requests.", "success":False}), content_type="application/json")
 
+
+@csrf_protect
+def api_upload_avatar(request):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            try:
+                user = UserProfile.objects.get(user=request.user)
+                avatar = request.FILES.get('avatar_src')
+                if avatar:
+                    user.avatar_src = avatar
+                    user.save()
+                    return HttpResponse(json.dumps({"message": "Avatar uploaded successfully.", "success": True}), content_type="application/json")
+                else:
+                    return HttpResponse(json.dumps({"message": "Please select an image.", "success": False}), content_type="application/json")
+            except Exception as e:
+                print(e)
+                return HttpResponse(json.dumps({"message": "An unknown error occurred.", "success": False}), content_type="application/json")
+        else:
+            return HttpResponse(json.dumps({"message": "You must be logged in to upload an avatar.", "success": False}), content_type="application/json")
+    else:
+        return HttpResponse(json.dumps({"message": "This endpoint only accepts POST requests.", "success":False}), content_type="application/json")
+
+@csrf_protect
 def api_submit_review(request):
     if request.method == "POST":
         if request.user.is_authenticated:
