@@ -5,6 +5,14 @@
 {% load static %}
 
 {% block navbar%}
+<style>
+    .avatar {
+        border-radius: 100%;
+        width: 200px;
+        height:200px;
+        object-fit: cover;
+    }
+</style>
 <div class="bg-image" id="background-img-wrap">
     <nav class="navbar navbar-dark navbar-expand-lg">
         <div class="container container-fluid">
@@ -91,8 +99,8 @@
                             </div>
 
                             {% if user_details.avatar_src %}
-                                <div class="col">
-                                        <img src="{{ user_details.avatar_src.url }}" alt="Avatar" style="border-radius: 100%;" />
+                                <div class="col-md-auto mt-3 d-sm-none d-md-block">
+                                        <img src="{{ user_details.avatar_src.url }}" alt="Avatar" class="img-thumbnail avatar me-3" />
                                 </div>
                             {% endif %}
 
