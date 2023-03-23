@@ -179,8 +179,8 @@
                         <form id="register">
                             <h1 class="white header-emphasis text-center">Create an account</h2>
                             {% csrf_token %}
-                            {{ login_form }}
-                            {{ register_form }}  
+                            {{ user_form }}
+                            {{ profile_form }}  
 
                             <button type="submit" class="btn w-100 btn-light mt-5" id="submit">Register</button>
                             <div id="response" class="mt-3 mb-3">

@@ -36,7 +36,7 @@ def logout_page(request):
 def register(request):
     if request.user.is_authenticated:
         return redirect("/account")
-    return render (request, template_name="CuisineCritic/register.html", context={"register_form":Registration(), "login_form":UserCreationForm()})
+    return render (request, template_name="CuisineCritic/register.html", context={"profile_form":Registration(), "user_form":UserCreationForm()})
 
 def restaurants(request):
     return render(request, 'CuisineCritic/restaurants.html')
