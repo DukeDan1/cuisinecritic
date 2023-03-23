@@ -34,6 +34,13 @@ restaurants = [
         "Address": "3 University Avenue, Glasgow, G12 8AA"
     },
     {
+        "Name": "Mexican Manor House",
+        "Image name": "mexican-photo-4.jpg",
+        "Slug": "mexicanManorHouse",
+        "Category": "Mexican",
+        "Address": "5 Woodburn Road, Glasgow, G13 9JD"
+    },
+    {
         "Name": "Chinese Manor House",
         "Image name": "chinese-photo-1.jpg",
         "Slug": "chineseManorHouse",
@@ -158,7 +165,8 @@ reviews = [
 def add_restaurants():
     for x in restaurants:
         try:
-            c = Category.objects.get_or_create(name=x['Category'])[0]
+            category_slug = slugify(x['Category'])
+            c = Category.objects.get_or_create(name=x['Category'], slug=category_slug)[0]
             c.save()
             
             r = Restaurant.objects.get_or_create(name=x['Name'], address=x['Address'], category=c)[0]

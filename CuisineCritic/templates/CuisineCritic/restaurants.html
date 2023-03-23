@@ -152,7 +152,7 @@
 <div class="bg-image" id="background-img-wrap">
     <nav class="navbar navbar-dark navbar-expand-lg">
         <div class="container container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/">
                 <!-- <img src="https://cuisine.dukedan.uk/somecoollogo.png" alt="" height="40"> !-->
                 Cuisine Critic
             </a>
@@ -204,15 +204,19 @@
             {% if user.is_authenticated %}
                 <div class="text-light text-center mt-3 w-100">Own a restaurant? <a href="#">Click here to add it</a></div>
             {% endif %}
+
         </div>
 
 
         <div class="container restaurant p-3">
             {% if success %}
+
                 <div class="grid">
                     {% for category in categories %}
                     <div class="row mt-3">
-                        <h3 class="category-name">{{ category.name }}</h3>
+                        <a href="/category/{{ category.slug }}" class="restaurant-link">
+                            <h3 class="category-name">{{ category.name }}</h3>
+                        </a>
                         {% for restaurant in category.restaurants %}
                             <div class="col">
                                 <a href="/restaurants/{{ restaurant.slug }}" class="restaurant-link">
@@ -228,6 +232,8 @@
                     </div>
                     {% endfor %}
                 </div>
+
+                
             {% else %}
                 <h1 class="text-danger">{{ reason }}</h1>
             {% endif %}

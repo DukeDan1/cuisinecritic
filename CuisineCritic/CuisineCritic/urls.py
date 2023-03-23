@@ -52,7 +52,11 @@ urlpatterns = [
 
 
     # Render restaurant
-    path('restaurants/<slug:restaurant_id>', views.render_restaurant, name='show_restaurant'),
+    path('restaurants/<slug:restaurant_slug>', views.render_restaurant, name='show_restaurant'),
+    # see all restaurants in category
+    path('category', views.redirect_restaurant, name='category_list'),
+    path('category/', views.redirect_restaurant, name='category_list'),
+    path('category/<slug:category_slug>', views.render_category, name='show_category'),
     
     # API URL endpoints:
     path('api/login', views.api_login, name='api_login'),

@@ -10,7 +10,7 @@ from datetime import datetime
 from django.views.decorators.csrf import csrf_protect 
 from django.contrib.auth import authenticate, login, logout
 from .models import *
-from django.db.models import Avg
+from django.db.models import Avg, Q
 from .forms import Registration
 from django.contrib.auth.forms import UserCreationForm
 import random
@@ -85,9 +85,9 @@ def forgottenPassword(request):
 
 
 # Render the restaurant view by querying the database and showing the correct restaurant
-def render_restaurant(request, restaurant_id):
+def render_restaurant(request, restaurant_slug):
     try:
-        restaurant = Restaurant.objects.get(slug=restaurant_id)
+        restaurant = Restaurant.objects.get(slug=restaurant_slug)
 
         # Get all reviews for the restaurant, if any, then select to show randomly
         reviews = Review.objects.filter(restaurant=restaurant)
@@ -134,6 +134,36 @@ def restaurant_list(request):
     except Exception as e:
         print(e)
         return render(request, 'CuisineCritic/restaurants.html', context={'success':False, "reason": "An unknown error occurred"})
+    
+def render_category(request, category_slug):
+    # view all restaurants in a category
+    try:
+        category = Category.objects.get(slug=category_slug)
+        restaurants = Restaurant.objects.filter(category=category)
+        
+        if len(restaurants) > 0:
+            context_dict = {"restaurants": [], "category_name": category.name, 'success': True}
+            for x in restaurants:
+                context_dict['restaurants'].append({
+                    "name": x.name,
+                    "slug": x.slug,
+                    "image": RestaurantImage.objects.filter(restaurant=x)[0].image_src.url
+                })
+            
+            # turn the array into a 2D array so that we can display 3 restaurants per row.
+            # each element in the array will contain up to 3 elements.
+            context_dict["restaurants"] = [context_dict["restaurants"][i:i+3] for i in range(0, len(context_dict["restaurants"]), 3)]
+            return render(request, 'CuisineCritic/categories.html', context=context_dict)
+        else:
+            return render(request, 'CuisineCritic/categories.html', context={'success':False, "reason": "There are no restaurants in this category"})
+    except Category.DoesNotExist:
+        return render(request, 'CuisineCritic/categories.html', context={'success':False, "reason": "This category was not found"})
+    except Exception as e:
+        print(e)
+        return render(request, 'CuisineCritic/categories.html', context={'success':False, "reason": "An unknown error occurred"})
+
+def redirect_restaurant(request):
+    return redirect("/restaurants")
 
 
 def account(request):
@@ -158,12 +188,16 @@ def delete_account(request):
             if request.POST.get("confirmation") != "true":
                 return redirect("/account")
             
+            
             profile = UserProfile.objects.get(user=request.user)
+
+            Review.objects.delete(user=profile)
+
             profile.delete()
 
             user = User.objects.get(username=request.user.username)
             user.delete()
-            
+
             return redirect("/logout")
         except UserProfile.DoesNotExist:
             return redirect("/account")
@@ -244,9 +278,16 @@ def api_search(request):
         query = request.POST.get('query')
         if query:
             try:
-                restaurants = Restaurant.objects.filter(name__icontains=query)
+                category = Category.objects.filter(name__iexact=query)
+                
+                if len(category) > 0:
+                    category = category[0]
+                    restaurants = Restaurant.objects.filter(Q(name__icontains=query) | Q(category=category))
+                else: restaurants = Restaurant.objects.filter(name__icontains=query)
+                
+
                 if restaurants and len(restaurants) > 0:
-                    restaurants_array = [{"slug": x.slug, "name":x.name} for x in restaurants]
+                    restaurants_array = [{"slug": x.slug, "name":x.name} for x in restaurants[:10]]
                     return HttpResponse(json.dumps({"message": "Search results found.", "success":True, "restaurants": restaurants_array}), content_type="application/json")
                 else:
                     return HttpResponse(json.dumps({"message": "No search results found.", "success":False}), content_type="application/json")
@@ -304,3 +345,26 @@ def api_submit_review(request):
         else: return HttpResponse(json.dumps({"message": "You must be logged in in order to submit a review.", "success":False}), content_type="application/json")
     else: return HttpResponse(json.dumps({"message": "This endpoint only accepts POST requests.", "success":False}), content_type="application/json")
        
+@csrf_protect
+def api_change_password(request):
+    if request.method == "POST":
+        # get data
+        old_password = request.POST.get('old-password')
+        new_password = request.POST.get('password')
+        confirm_password = request.POST.get('password2')
+
+        # check if user is logged in
+        if request.user.is_authenticated:
+            # check if passwords match
+            if new_password == confirm_password:
+                # check if old password is correct
+                if request.user.check_password(old_password):
+                    # change password
+                    request.user.set_password(new_password)
+                    request.user.save()
+                    return HttpResponse(json.dumps({"message": "Password changed successfully.", "success":True}), content_type="application/json")
+                else: return HttpResponse(json.dumps({"message": "The old password you provided is incorrect.", "success":False}), content_type="application/json")
+            else: return HttpResponse(json.dumps({"message": "The new passwords you provided do not match.", "success":False}), content_type="application/json")
+        else: return HttpResponse(json.dumps({"message": "You must be logged in in order to change your password.", "success":False}), content_type="application/json")
+
+    else: return HttpResponse(json.dumps({"message": "This endpoint only accepts POST requests.", "success":False}), content_type="application/json")

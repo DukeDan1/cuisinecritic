@@ -1,0 +1,119 @@
+{% extends 'CuisineCritic/base.html' %}
+{% block title_block %}
+    Featured restaurants
+{% endblock %} 
+{% load static %}
+
+{% block navbar %}
+<style>
+    .container {
+        color:black;
+        padding: 1rem;
+        border-radius: 3px;
+    }
+
+
+    .restaurant-image {
+        height:12rem;
+        object-fit: cover;
+    }
+
+    .restaurant-link {
+        color: black;
+        text-decoration: none;
+    }
+
+
+
+
+  .card {
+    min-width:18rem;
+  }
+
+  @media screen and (max-width: 700px) {
+    .card {
+       margin-top:10px;
+       margin-bottom:10px;
+    }
+  }
+
+
+</style>
+
+
+<div class="bg-image" id="background-img-wrap">
+    <nav class="navbar navbar-dark navbar-expand-lg">
+        <div class="container container-fluid">
+            <a class="navbar-brand" href="/">
+                <!-- <img src="https://cuisine.dukedan.uk/somecoollogo.png" alt="" height="40"> !-->
+                Cuisine Critic
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" pa-marked="1">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarColor01">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/restaurants">Restaurants</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/account">Account</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Log in</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">Register</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="bg-restaurant-wrapper">
+        <div class="container category p-3">
+            {% if success %}
+                <h1 class="category-name">{{ category_name }}</h1>
+                <div class="grid">
+                    {% for group in restaurants %}
+                    <div class="row mt-3">
+                        {% for restaurant in group %}
+                            <div class="col">
+                                <a href="/restaurants/{{ restaurant.slug }}" class="restaurant-link">
+                                <div class="card">
+                                    <img src="{{ restaurant.image }}" class="card-img-top restaurant-image">
+                                    <div class="card-body">
+                                    <p class="card-text"> {{ restaurant.name }} </p>
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <h1 class="text-danger">{{ reason }}</h1>
+            {% endif %}
+        </div>
+        <div style="height: 50px;"></div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block body_block %}
+{% endblock %}

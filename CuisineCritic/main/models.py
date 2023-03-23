@@ -12,7 +12,8 @@ class UserProfile(models.Model):
 class Category(models.Model):
     category_id = models.AutoField(max_length=50, primary_key=True)
     name = models.CharField(max_length=200, unique=True)
-    image_src = models.ImageField(upload_to='media', blank=True, null=True)
+    slug = models.SlugField(unique=True)
+    # image_src = models.ImageField(upload_to='media', blank=True, null=True) Removed for now
 
 class Restaurant(models.Model):
     restaurant_id = models.AutoField(primary_key=True)
@@ -37,5 +38,5 @@ class Review(models.Model):
     rating = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     title = models.CharField(max_length=200)
     comment = models.CharField(max_length=2000)
-    likes = models.IntegerField(default=0)
+    # likes = models.IntegerField(default=0) Removed for now
     image_src = models.ImageField(upload_to='media', null=True, blank=True)
