@@ -179,7 +179,7 @@ def add_restaurants():
 
 def add_users():
     for x in users:
-        from django.contrib.auth.forms import UserCreationForm
+        
         x["password1"] = x["password"]
         x["password2"] = x["password"]
 
@@ -189,7 +189,7 @@ def add_users():
 
             user_form.save()
             reg_form.save()
-        except:
+        except Exception as e:
             pass
 
 
@@ -198,7 +198,7 @@ def add_reviews():
     for x in restaurants:
         random_reviews = [random.choice(reviews) for x in range(3)]
         for y in random_reviews:
-            user = UserProfile.objects.get_or_create(name=random.choice(users)["name"])[0]
+            user = UserProfile.objects.get(email=random.choice(users)["email"])
             r = Review.objects.get_or_create(rating=y["rating"], title=y["title"], comment=y["comment"], restaurant=Restaurant.objects.get(name=x["Name"]), user=user)[0]
             r.save()
 
