@@ -169,6 +169,14 @@ def add_restaurants():
         except:
             pass
 
+    # test multiple images per restaurant
+    r = Restaurant.objects.get(slug="phucket")
+    i = RestaurantImage.objects.get_or_create(image_src="phucket2.jpg", restaurant=r)[0]
+    i.save()
+    i = RestaurantImage.objects.get_or_create(image_src="phucket3.jpg", restaurant=r)[0]
+    i.save()
+
+
 def add_users():
     for x in users:
         from django.contrib.auth.forms import UserCreationForm

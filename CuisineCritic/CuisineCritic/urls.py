@@ -33,6 +33,7 @@ urlpatterns = [
     path('forgottenPassword', views.forgottenPassword, name='forgottenPassword'),
      path('login/forgottenPassword.html', views.forgottenPassword, name='forgottenPassword'),
     path('logout', views.logout_page, name='logout'),
+    path('delete', views.delete_account, name='delete'),
 
 
     # Replaced by automated restaurant pages:

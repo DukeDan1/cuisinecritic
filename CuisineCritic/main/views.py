@@ -42,8 +42,7 @@ def restaurants(request):
 def profile(request):
     return render(request, 'CuisineCritic/profile.html')
 
-def account(request):
-    return render(request, 'CuisineCritic/account.html')
+
 
 def chineseManorHouse(request):
     return render(request, 'CuisineCritic/chineseManorHouse.html')
@@ -135,6 +134,43 @@ def restaurant_list(request):
     except Exception as e:
         print(e)
         return render(request, 'CuisineCritic/restaurants.html', context={'success':False, "reason": "An unknown error occurred"})
+
+
+def account(request):
+    if not request.user.is_authenticated:
+        return redirect("/login")
+    else:
+        try:
+            user = UserProfile.objects.get(user=request.user)
+            context_dict = {"user_details": user, 'success': True}
+            return render(request, 'CuisineCritic/account.html', context=context_dict)
+        except UserProfile.DoesNotExist:
+            return render(request, 'CuisineCritic/account.html', context={'success':False, "error": "We were unable to fetch your account. Please try again."})
+        except Exception as e:
+            print(e)
+            return render(request, 'CuisineCritic/account.html', context={'success':False, "error": "An unexpected error has occurred. Please try again."})
+
+def delete_account(request):
+    if request.method != "POST":
+        return redirect("/account")
+    else:
+        try:
+            if request.POST.get("confirmation") != "true":
+                return redirect("/account")
+            
+            profile = UserProfile.objects.get(user=request.user)
+            profile.delete()
+
+            user = User.objects.get(username=request.user.username)
+            user.delete()
+            
+            return redirect("/logout")
+        except UserProfile.DoesNotExist:
+            return redirect("/account")
+        except Exception as e:
+            print(e)
+            return redirect("/account")
+
 # API:
 
 @csrf_protect 

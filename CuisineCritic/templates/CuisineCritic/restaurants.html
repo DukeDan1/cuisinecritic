@@ -12,9 +12,6 @@
         border-radius: 3px;
     }
 
-    .restaurant {
-        background-color: white;
-    }
 
     .restaurant-image {
         height:12rem;
@@ -57,9 +54,7 @@
     color: black;
   }
 
-  .category-name {
-    font-family: "Bebas Neue";
-  }
+
 
   .card {
     min-width:18rem;
@@ -172,8 +167,8 @@
                         <a class="nav-link" href="/">Home</a>
                     </li>
 
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Restaurants</a>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Restaurants</a>
                     </li>
                     {% if user.is_authenticated %}
                         <li class="nav-item">
@@ -212,7 +207,7 @@
         </div>
 
 
-        <div class="container restaurant">
+        <div class="container restaurant p-3">
             {% if success %}
                 <div class="grid">
                     {% for category in categories %}
