@@ -33,7 +33,7 @@
                 }).then(res => res.json())
                 .then(data => {
                     
-                    button_disable(false);
+                    
                     if(data.success) {
                         
                         // Submit profile image
@@ -57,6 +57,7 @@
                                 body: formData,
                             }).then(res => res.json())
                             .then(imageResponse => {
+                                button_disable(false);
                                 if (imageResponse.success) {
                                     resElement.innerHTML = generateAlert(data.message, 'success');
                                 } else {;
@@ -65,13 +66,16 @@
                             })
                             .catch(err => {
                                 console.log(err);
+                                button_disable(false);
                                 resElement.innerHTML = generateAlert("Something went wrong. Please retry.");
                             });
                         } else {
+                            button_disable(false);
                             resElement.innerHTML = generateAlert(data.message, 'success');
                         }
 
                     } else {
+                        button_disable(false);
                         resElement.innerHTML = generateAlert(data.message);
                     }
                 })
