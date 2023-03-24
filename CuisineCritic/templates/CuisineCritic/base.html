@@ -23,6 +23,14 @@
         /* this rule is here to allow usage of the static command */
         #background-img-wrap {
             background: url("{% static 'background.png' %}");
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+            background-position: bottom;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            background-size: cover;
+            -o-background-size: cover;
+            min-height: 100vh;
         }
     </style>
 </head>
