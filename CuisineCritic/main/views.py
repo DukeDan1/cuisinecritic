@@ -152,11 +152,15 @@ def render_category(request, category_slug):
         if len(restaurants) > 0:
             context_dict = {"restaurants": [], "category_name": category.name, 'success': True}
             for x in restaurants:
-                context_dict['restaurants'].append({
-                    "name": x.name,
-                    "slug": x.slug,
-                    "image": RestaurantImage.objects.filter(restaurant=x)[0].image_src.url
-                })
+
+                try:
+                    context_dict['restaurants'].append({
+                        "name": x.name,
+                        "slug": x.slug,
+                        "image": RestaurantImage.objects.filter(restaurant=x)[0].image_src.url
+                    })
+                except:
+                    pass
             
             # turn the array into a 2D array so that we can display 3 restaurants per row.
             # each element in the array will contain up to 3 elements.
