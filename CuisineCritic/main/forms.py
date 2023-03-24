@@ -1,14 +1,13 @@
 from django import forms
-from .models import Category, UserProfile, Restaurant
+from .models import Category, UserProfile, Restaurant, RestaurantImage
 
 class Registration(forms.ModelForm):
-	email = forms.EmailField(required=True)
-	name = forms.CharField(required=True)
-	avatar_src= forms.ImageField(required=False)
+	# email = forms.EmailField(required=True)
+	# name = forms.CharField(required=True)
+	# avatar_src= forms.ImageField(required=False)
 
 	class Meta:
 		model = UserProfile
-		# additional fields to be displayed
 		fields = ("email", "name", "avatar_src")
 	
 	def save(self, commit=True):
@@ -21,18 +20,19 @@ class Registration(forms.ModelForm):
 		return user
 
 
-def get_category_choices():
-	categories = Category.objects.all()
-	category_choices = []
-	for x in categories:
-		category_choices.append((x.category_id, x.name))
-	return category_choices
+
 
 
 class CreateResturaunt(forms.ModelForm):
-	name=forms.CharField(required=True)
-	address=forms.CharField(required=True)
-	category=forms.CharField(label="Select...", widget=forms.Select(choices=get_category_choices()))
+	# name=forms.CharField(required=True)
+	# address=forms.CharField(required=True)
+	
+	# categories = Category.objects.all()
+	# category_choices = []
+	# for x in categories:
+	# 	category_choices.append((x.category_id, x.name))
+
+	#category=forms.CharField(label="Select...", widget=forms.Select(choices=categories))
 	# slug is created automatically
 
 	class Meta:
