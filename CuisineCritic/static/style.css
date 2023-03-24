@@ -5,16 +5,6 @@
     border-radius: 3px;
 }
 
-#background-img-wrap {
-  background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-position: bottom;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
-    min-height: 100vh;
-}
 
 .avatar {
     border-radius: 100%;
