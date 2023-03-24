@@ -228,7 +228,6 @@ def delete_account(request):
             return redirect("/account")
         except Exception as e:
             print(e)
-            raise e
             return redirect("/account")
 
 # API:
