@@ -29,7 +29,7 @@ class Restaurant(models.Model):
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        self.slug = slugify(str(self.restaurant_id) + "." + self.name)
         super(Restaurant, self).save(*args, **kwargs)
 
 class RestaurantImage(models.Model):
