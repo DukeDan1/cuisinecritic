@@ -177,7 +177,7 @@ def add_restaurants():
             pass
 
     # test multiple images per restaurant
-    r = Restaurant.objects.get(slug="phucket")
+    r = Restaurant.objects.get(slug__icontains="phucket")
     i = RestaurantImage.objects.get_or_create(image_src="phucket2.jpg", restaurant=r)[0]
     i.save()
     i = RestaurantImage.objects.get_or_create(image_src="phucket3.jpg", restaurant=r)[0]
