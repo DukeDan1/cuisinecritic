@@ -1,8 +1,9 @@
 from django.apps import AppConfig
-from CuisineCritic.CuisineCritic.settings import BASE_DIR    
+import os
+from django.conf import settings
 
 class CuisineCriticConfig(AppConfig):
     name = 'CuisineCritic'
     verbose_name = 'Cuisine Critic'
     label = "Cuisine Critic"
-    path = BASE_DIR+"/main"
+    path = os.path.join(settings.BASE_DIR, 'main')
