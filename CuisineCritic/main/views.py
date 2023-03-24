@@ -100,7 +100,10 @@ def render_restaurant(request, restaurant_slug):
             selected_reviews.add(random.choice(reviews))
 
         # Get the average rating for the restaurant
-        average_rating = round(reviews.aggregate(Avg('rating'))['rating__avg'], 1)
+        try:
+            average_rating = round(reviews.aggregate(Avg('rating'))['rating__avg'], 1)
+        except:
+            average_rating = False
         
 
         # Get all of the images for this restaurant, if any
@@ -172,14 +175,8 @@ def add_restaurant(request):
     if not request.user.is_authenticated:
         return redirect("/restaurants")
     else:
-        try:
-            categories = Category.objects.all()
-            context_dict = {"categories": categories, 'success': True}
-            return render(request, 'CuisineCritic/addRestaurant.html', context=context_dict)
-        except Exception as e:
-            print(e)
-            return render(request, 'CuisineCritic/addRestaurant.html', context={'success':False, "reason": "An unknown error occurred"})
-
+        context_dict = {"restaurant_form": CreateRestaurant()}
+        return render(request, 'CuisineCritic/addRestaurant.html', context=context_dict)
         
 
 
@@ -392,6 +389,71 @@ def api_submit_review(request):
         else: return HttpResponse(json.dumps({"message": "You must be logged in in order to submit a review.", "success":False}), content_type="application/json")
     else: return HttpResponse(json.dumps({"message": "This endpoint only accepts POST requests.", "success":False}), content_type="application/json")
        
+
+@csrf_protect
+def api_create_restaurant(request):
+    if request.method == "POST":
+        try:
+            # c = Category.objects.get(category_id=request.POST.get('category'))
+            # data = {x[0]:x[1] for x in list(request.POST.items())}
+            # # data = request.POST.copy()
+            # # data.update({'category': c})
+
+            # data['category'] = c
+            # print(data)
+
+            restaurant_form = CreateRestaurant(request.POST)
+
+            response_data = {'success':False, 'message': "The provided information is invalid."}
+
+            if restaurant_form.is_valid():
+                restaurant_form.save()
+
+                response_data['success'] = True
+                response_data['message'] = 'You have successfully created a restaurant.'
+                response_data['restaurant_id'] = restaurant_form.instance.restaurant_id
+                return HttpResponse(json.dumps(response_data), content_type="application/json")
+            else:
+                if not restaurant_form.is_valid() and restaurant_form.errors:
+                    response_data['message'] += " \n\n " + restaurant_form.errors.as_ul()
+
+            return HttpResponse(json.dumps(response_data), content_type="application/json")
+        
+        except Exception as e:
+            print(e)
+
+            return HttpResponse(json.dumps({"message": "Unable to create restaurant. Please try again with a different restaurant name.", "success": False}), content_type="application/json")
+
+    else: return HttpResponse(json.dumps({"message": "This endpoint only accepts POST requests.", "success":False}), content_type="application/json")
+
+@csrf_protect
+def api_upload_restaurant_image(request):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            try:
+                restaurant = Restaurant.objects.get(restaurant_id=request.POST.get('restaurant_id'))
+                image = request.FILES.get('restaurant-image0')
+                increment = 0
+
+                if image:
+                    while image:
+                        r = RestaurantImage(restaurant=restaurant, image_src=image)
+                        r.save()
+                        increment += 1
+                        image = request.FILES.get('restaurant-image'+str(increment))
+                    return HttpResponse(json.dumps({"message": "Image(s) uploaded successfully.", "success": True}), content_type="application/json")
+                else:
+                    restaurant.delete()
+                    return HttpResponse(json.dumps({"message": "Please select an image.", "success": False}), content_type="application/json")
+            except Exception as e:
+                print(e)
+                return HttpResponse(json.dumps({"message": "An unknown error occurred.", "success": False}), content_type="application/json")
+        else:
+            return HttpResponse(json.dumps({"message": "You must be logged in to upload an image.", "success": False}), content_type="application/json")
+    else:
+        return HttpResponse(json.dumps({"message": "This endpoint only accepts POST requests.", "success":False}), content_type="application/json")
+
+
 @csrf_protect
 def api_change_password(request):
     if request.method == "POST":

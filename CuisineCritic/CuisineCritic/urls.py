@@ -37,20 +37,6 @@ urlpatterns = [
     path('delete', views.delete_account, name='delete'),
 
 
-    # Replaced by automated restaurant pages:
-    # path('chineseManorHouse', views.chineseManorHouse, name='chineseManorHouse'),
-    # path('shanghaiShuffle', views.shanghaiShuffle, name='shanghaiShuffle'),
-    # path('luckyStar', views.luckyStar, name='luckyStar'),
-    # path('alessi', views.alessi, name='alessi'),
-    # path('bombayBanquet', views.bombayBanquet, name='bombayBanquet'),
-    # path('easternPavilion', views.easternPavilion, name='easternPavilion'),
-    # path('topolobamba', views.topolobamba, name='topolobamba'),
-    # path('elPastor', views.elPastor, name='elPastor'),
-    # path('wahaca', views.wahaca, name='wahaca'),
-    # path('phucket', views.phucket, name='phucket'),
-    # path('kaoSarn', views.kaoSarn, name='kaoSarn'),
-    # path('theMangoTree', views.theMangoTree, name='theMangoTree'),
-
 
     # Render restaurant
     path('restaurants/<slug:restaurant_slug>', views.render_restaurant, name='show_restaurant'),
@@ -67,6 +53,7 @@ urlpatterns = [
     path('api/register', views.api_register, name='api_register'),
     path('api/search', views.api_search, name='api_search'),
     path('api/create_restaurant', views.api_create_restaurant, name='api_create_restaurant'),
+    path('api/upload_restaurant_image', views.api_upload_restaurant_image, name='api_upload_restaurant_image'),
     path('api/review', views.api_submit_review, name='api_submit_review'),
     path('api/upload_avatar', views.api_upload_avatar, name='api_upload_avatar'),
 

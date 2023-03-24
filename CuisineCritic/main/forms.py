@@ -34,12 +34,7 @@ class CreateRestaurant(forms.ModelForm):
 		restaurant = super(CreateRestaurant, self).save(commit=False)
 		restaurant.name = self.cleaned_data["name"]
 		restaurant.address = self.cleaned_data["address"]
-		category = self.cleaned_data["category"]
-
-		try:
-			restaurant.category = Category.objects.get(category_id=category)
-		except Category.DoesNotExist:
-			raise forms.ValidationError("Category does not exist")
+		restaurant.category = self.cleaned_data["category"]
 		
 
 		if commit:

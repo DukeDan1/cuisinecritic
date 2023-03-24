@@ -10,14 +10,21 @@
         window.onload = () => {
             form_fixer();
 
-            document.getElementById('register').addEventListener('submit', (e) => {
+            document.getElementById('add-restaurant').addEventListener('submit', (e) => {
                 e.preventDefault();
                 
                 button_disable(true);
-                var form = new FormData(document.getElementById("register"));
-                form.delete('avatar_src');
+                var form = new FormData(document.getElementById("add-restaurant"));
+                form.delete('restaurant-image');
 
-                fetch('/api/register', {
+                var resElement =  document.getElementById('response');
+                if(document.getElementById('restaurant-image').files.length < 1) {
+                    resElement.innerHTML = generateAlert('Please upload at least one image.', 'danger');
+                    button_disable(false);
+                    return;
+                }
+
+                fetch('/api/create_restaurant', {
                     method: 'POST',
                     headers: {
                         'X-CSRFToken': document.querySelector(["[name=csrfmiddlewaretoken]"]).value
@@ -25,20 +32,24 @@
                     body: form,
                 }).then(res => res.json())
                 .then(data => {
-                    var resElement =  document.getElementById('response');
+                    
                     button_disable(false);
                     if(data.success) {
                         
                         // Submit profile image
-                        var element = document.querySelector('[name=avatar_src]');
+                        var element = document.querySelector('#restaurant-image');
                         if (element.files.length > 0) {
                             var formData = new FormData();
-                            formData.append('avatar_src',element.files[0]);
+                            for(var i = 0; i < element.files.length; i++) {
+                                formData.append(`restaurant-image${i}`,element.files[i]);
+                            }
+                            
                             var newCSRFToken = document.cookie.split(';').find(row => row.trim().startsWith('csrftoken')).split('=')[1];
 
                             formData.append('csrfmiddlewaretoken', newCSRFToken);
+                            formData.append('restaurant_id', data.restaurant_id);
 
-                            fetch('/api/upload_avatar', {
+                            fetch('/api/upload_restaurant_image', {
                                 method: 'POST',
                                 headers: {
                                     'X-CSRFToken':newCSRFToken
@@ -48,14 +59,9 @@
                             .then(imageResponse => {
                                 if (imageResponse.success) {
                                     resElement.innerHTML = generateAlert(data.message, 'success');
-                                } else {
-                                    data.message += " But profile image upload failed.";
-                                    resElement.innerHTML = generateAlert(data.message, 'success');
+                                } else {;
+                                    resElement.innerHTML = generateAlert(imageResponse.message, 'danger');
                                 }
-
-                                setTimeout(() => {
-                                    window.location.href = '/restaurants';
-                                }, 2000);
                             })
                             .catch(err => {
                                 console.log(err);
@@ -63,9 +69,6 @@
                             });
                         } else {
                             resElement.innerHTML = generateAlert(data.message, 'success');
-                            setTimeout(() => {
-                                window.location.href = '/restaurants';
-                            }, 2000);
                         }
 
                     } else {
@@ -85,7 +88,7 @@
             if (!enable) {
                 btn.disabled = false;
                 btn.classList.replace("btn-info", "btn-light");
-                btn.innerHTML = "Register";
+                btn.innerHTML = "Add Restaurant";
             } else {
                 btn.disabled = true;
                 btn.classList.replace("btn-light", "btn-info");
@@ -117,10 +120,14 @@
                 }
             }
 
-            document.querySelector("[name=avatar_src]").outerHTML = `<label for="avatar_src" class="form-label">Choose a profile picture:</label>` + document.querySelector("[name=avatar_src]").outerHTML;
+            document.querySelector("select").classList.add("form-select", "mt-3", "mb-3");
+            document.querySelector(`[for=id_category]`).remove();
+            document.querySelector("select").options[0].innerHTML = "Select a restaurant type...";
+
+            document.querySelector("#restaurant-image").outerHTML = `<label for="restaurant-image" class="form-label">Choose some image(s) for your restaurant:</label>` + document.querySelector("#restaurant-image").outerHTML;
 
             Array.from(document.getElementsByClassName('helptext')).forEach(e => e.classList.add('d-none', 'text-light'));
-            Array.from(document.querySelector('#register').getElementsByTagName("br")).forEach(e => e.remove());
+            Array.from(document.querySelector('#add-restaurant').getElementsByTagName("br")).forEach(e => e.remove());
         }
     </script>
 
@@ -149,7 +156,7 @@
                         </li>
     
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Restaurants</a>
+                            <a class="nav-link" href="/restaurants">Restaurants</a>
                         </li>
                         {% if user.is_authenticated %}
                             <li class="nav-item">
@@ -163,7 +170,7 @@
                                 <a class="nav-link" href="/login">Log in</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="/register">Register</a>
+                                <a class="nav-link" href="/register">Register</a>
                             </li>
                         {% endif %}
                     </ul>
@@ -176,18 +183,17 @@
             <section>
                 <div class="form-box text-light">
                     <div class="form-value">
-                        <form id="register">
-                            <h1 class="white header-emphasis text-center">Create an account</h1>
+                        <form id="add-restaurant">
+                            <h1 class="white header-emphasis text-center">Create a restaurant</h1>
                             {% csrf_token %}
-                            {{ user_form }}
-                            {{ profile_form }}  
+                            {{ restaurant_form }}
 
-                            <button type="submit" class="btn w-100 btn-light mt-5" id="submit">Register</button>
+                            <input type="file" class="form-control" name="restaurant-image" id="restaurant-image" accept="image/*" multiple>
+                            <label for="restaurant-image"></label>
+
+                            <button type="submit" class="btn w-100 btn-light mt-5" id="submit">Add Restaurant</button>
                             <div id="response" class="mt-3 mb-3">
                                 <!-- AJAX response will be inserted here after the form is submitted. -->
-                            </div>
-                            <div class="text-center mt-5">
-                                <p>Already have an account? <a href="/login">Log in</a></p>
                             </div>
                         </form>
 

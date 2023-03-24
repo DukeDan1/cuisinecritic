@@ -13,11 +13,13 @@ class Category(models.Model):
     category_id = models.AutoField(max_length=50, primary_key=True)
     name = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(unique=True)
-    # image_src = models.ImageField(upload_to='media', blank=True, null=True) Removed for now
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
+    
+    def __str__(self):
+        return self.name
 
 class Restaurant(models.Model):
     restaurant_id = models.AutoField(primary_key=True)
@@ -42,5 +44,3 @@ class Review(models.Model):
     rating = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     title = models.CharField(max_length=200)
     comment = models.CharField(max_length=2000)
-    # likes = models.IntegerField(default=0) Removed for now
-    #image_src = models.ImageField(upload_to='reviews', null=True, blank=True) Goodbye for now
