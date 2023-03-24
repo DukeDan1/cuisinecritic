@@ -132,7 +132,10 @@ def restaurant_list(request):
         for x in categories:
             x.restaurants = Restaurant.objects.filter(category=x)[:3]
             for y in x.restaurants:
-                y.image = RestaurantImage.objects.filter(restaurant=y)[0].image_src.url
+                try:
+                    y.image = RestaurantImage.objects.filter(restaurant=y)[0].image_src.url
+                except:
+                    y.image = "..."
 
         context_dict = {"categories": categories, 'success': True}
         return render(request, 'CuisineCritic/restaurants.html', context=context_dict)
