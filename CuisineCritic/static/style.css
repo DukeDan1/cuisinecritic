@@ -1,208 +1,27 @@
-
-*{
-    margin: 0;
-    padding: 0;
-}
-
-section{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    width: 100%;
-    background: url('https://cdn.discordapp.com/attachments/960946380476669994/1080909695855906887/Chinese-food-e1503874824887_1.png')no-repeat;
-    background-position: center;
-    background-size: cover;
-}
-
-.form-box{
-    position: relative;
-    max-width: 400px;
-    max-height: 450px;
-    background: transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;   
-}
-
-h2{
-    font-size: 2em;
-    color: #fff;
-    text-align: center;
-}
-
-h3{
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.2em;
-    color: #2e302b;
-    text-align: left;
-}
-
-.inputbox{
-    position: relative;
-    margin: 30px 0;
-    width: 310px;
-    border-bottom: 2px solid #fff;
-}
-
-.inputbox label{
-    position: absolute;
-    top: 50%;
-    left: 5px;
-    transform: translateY(-50%);
-    color: #fff;
-    font-size: 1em;
-    pointer-events: none;
-}
-input:focus ~ label,
-input:valid ~ label{
-top: -5px;
-}
-
-.inputbox input{
-    width: 100%;
-    height: 50px;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: 1em;
-    padding: 0 35px 0 5px;
-    color: #fff;
-}
-
-.inputbox ion-icon{
-    position: absolute;
-    right: 8px;
-    color: #fff;
-    font-size: 1.2em;
-    top: 20px;
-}
-
-.image-container ion-icon{
-    position: absolute;
-    right: 8px;
-    color: black;
-    font-size: 1.2em;
-    top: 20px;
-}
-
-.forget{
-    margin: -15px 0 15px;
-    font-size: .9em;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-}
-
-.forget label input{
-    margin-right: 3px;
-}
-
-.forget label a{
-    color: #fff;
-    text-decoration: none;
-}
-
-.forget label a:hover{
-    text-decoration: underline;
-}
-
-button{
-    width: 100%;
-    height: 40px;
-    border-radius: 40px;
-    background: #fff;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: 600;
-}
-
-.register{
-    font-size: .9em;
-    color: #fff;
-    text-align: center;
-    margin: 25px 0 10px;
-}
-
-.register p a{
-    text-decoration: none;
-    color: #fff;
-    font-weight: 600;
-}
-
-.register p a:hover{
-    text-decoration: underline;
-}
-
-.login{
-    font-size: .9em;
-    color: #fff;
-    text-align: center;
-    margin: 25px 0 10px;
-}
-
-.login p a{
-    text-decoration: none;
-    color: #fff;
-    font-weight: 600;
-}
-
-.login p a:hover{
-    text-decoration: underline;
-}
-
-.profilebox{
-    position: relative;
-    margin: 30px 0;
-    width: 310px;
-    border-bottom: 2px solid #fff;
-}
-
-.profilebox label{
-    position: absolute;
-    top: 50%;
-    left: 5px;
-    transform: translateY(-50%);
-    color: #fff;
-    font-size: 1em;
-    pointer-events: none;
-}
-
-.profilebox input{
-    width: 100%;
-    height: 50px;
-    background: #fff;
-    border: none;
-    outline: none;
-    font-size: 1em;
-    padding: 0 35px 0 5px;
-    color: black;
-}
-
-.profilebox ion-icon{
-    position: absolute;
-    right: 8px;
-    color: #fff;
-    font-size: 1.2em;
-    top: 20px;
-}
-
 .container {
     max-width: 960px;
-}
-
-.header-mw700 {
-    max-width: 700px;
+    color:black;
+    padding: 1rem;
+    border-radius: 3px;
 }
 
 #background-img-wrap {
-  background: url('https://cdn.discordapp.com/attachments/960946380476669994/1080909695855906887/Chinese-food-e1503874824887_1.png') no-repeat;
-  background-position: center; 
-  width: 100%;
+  background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: bottom;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    min-height: 100vh;
 }
 
+.avatar {
+    border-radius: 100%;
+    width: 200px;
+    height:200px;
+    object-fit: cover;
+}
 
 
 .bg-wrap-contents {
@@ -221,196 +40,61 @@ button{
   transform: translateY(-50%);
 }
 
-#section1 {
-  background-color: #9dd5e3;
-}
-
-footer {
-    background-color: #2e302b;
-}
-
-footer * {
-    color: #fff;
-}
-
 nav div div ul li a.active {
     color: #b5adad !important;
 }
 
-
-.photo-container{
-    max-width: 1200px;
-    margin: auto;
-    background: #f2f2f2
+.category-name, .header-emphasis {
+    font-family: "Bebas Neue";
 }
 
-.gallery{
-    margin: 5px;
-    border: 1px;
-    float: left;
-    width: 390px;
+.restaurant, .account, .category {
+
+    background-color: white;
 }
 
-.gallery img{
-    width: 100%;
-    height: auto;
+.bg-restaurant-wrapper, .bg-account-wrapper {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
 }
 
-.name{
-    padding: 15px;
-    text-align: center;
+.nav-link:focus, .nav-link:hover {
+    color: #b5adad !important;
 }
 
-body{
-    margin: 0;
-    background: url("https://media.istockphoto.com/id/545286388/photo/chinese-food-blank-background.jpg?s=612x612&w=0&k=20&c=pqOIy07YKO5PlU5VxjscwTGRrrZ8PluKMUjSOz-II60=");
+.signupform, .signin-form {
+    max-width: 500px;
 }
-nav{
-    background: #2e302b;
-    width: 100%;
-    overflow: auto;
+
+
+.restaurant-image {
+    height:12rem;
+    object-fit: cover;
 }
-ul{
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-li{
-    float: left;
-}
-nav a{
-    width: 120px;
-    display: block;
-    text-decoration: none;
-    text-align: center;
-    background: #2e302b;
-    font-size: 17px;
-    color: white;
-    padding: 20px 10px;
-    font-family: 'Poppins', sans-serif;
-}
-nav a:hover{
-    background: skyblue;
+
+.restaurant-link {
     color: black;
-}
-.image-container{
-    max-width: 1200px;
-    margin: auto;
-    background: #f2f2f2;
-    overflow: auto;
-}
-.gallery{
-    margin: 5px;
-    border: 1px solid #ccc;
-    float: left;
-    width: 390px;
-}
-.gallery img{
-    width: 100%;
-    height: auto;
-}
-.name{
-    padding: 15px;
-    text-align: center;
-}
-
-
-.profile-box{
-    width: 450px;
-    padding: 40px;
-    background-color: transparent;
-    text-align: center;
-    margin: auto;
-    margin-top: 5%;
-    color: #f2f2f2;
-    font-family: 'Poppins', sans-serif;
-}
-.profile-box-img{
-    border-radius: 50%;
-    width: 200px;
-    height: 200px;
-}
-.profile-box h1{
-    font-size: 40px;
-    letter-spacing: 4px;
-    font-weight: 100;
-}
-.profile-box h4{
-    font-size: 25px;
-    letter-spacing: 3px;
-    font-weight: 100;
-}
-.ul{
-    margin: 0;
-    padding: 0;
-}
-.box li{
-    display: inline-block;
-    margin: 6px;
-    list-style: none;
-}
-.box li a{
-    color: #f2f2f2;
     text-decoration: none;
-    font-size: 60px;
-    transition: all ease-in-out 250ms;
-}
-.box li a:hover{
-    color: #b9b9b9;
 }
 
 
 
-nav{
-    background: #2e302b;
+
+.restaurantcard {
+    min-width:18rem;
+}
+
+@media screen and (max-width: 700px) {
+    .restaurantcard {
+    margin-top:10px;
+    margin-bottom:10px;
+    }
+}
+
+
+.search-container{
     width: 100%;
-    overflow: auto;
-  }
-  ul{
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  li{
-    float: left;
-  }
-  nav a{
-    width: 120px;
-    display: block;
-    text-decoration: none;
-    text-align: center;
-    background: #2e302b;
-    font-size: 17px;
-    color: white;
-    padding: 20px 10px;
-    font-family: 'Poppins', sans-serif;
-  }
-  nav a:hover{
-    background: skyblue;
-    color: black;
-  }
-
-
-
-
-
-  .gallery{
-    margin: 5px;
-    border: 1px solid #ccc;
-    float: left;
-    width: 390px;
-  }
-  .gallery img{
-    width: 100%;
-    height: auto;
-  }
-  .name{
-    padding: 15px;
-    text-align: center;
-  }
-  .search-container{
-    width: 100%;
-    min-height: 100vh;
+    min-height: 80vh;
     padding: 5%;
     background-position: center;
     background-size: cover;
@@ -438,76 +122,3 @@ nav{
     font-size: 20px;
     color: black;
   }
-
-
-
-
-  .restaurant-profile-box{
-    width: 1000px;
-    height: 600px;
-    padding: 40px;
-    background-color: #f2f2f2;
-    text-align: auto;
-    margin: auto;
-    margin-top: 2%;
-    color: #f2f2f2;
-    font-family: 'Poppins', sans-serif;
-}
-.restaurant-profile-box-img{
-    border-radius: 15px;
-    width: 400px;
-    height: 300px;
-    align-items: left;
-}
-.ul{
-    margin: 0;
-    padding: 0;
-}
-.restaurant-profile-box li{
-    display: inline-block;
-    margin: 6px;
-    list-style: none;
-}
-.restaurant-profile-box li a{
-    color: #f2f2f2;
-    text-decoration: none;
-    font-size: 60px;
-    transition: all ease-in-out 250ms;
-}
-.restaurant-profile-box li a:hover{
-    color: #b9b9b9;
-}
-.restaurant-profile-box h1{
-    font-size: 40px;
-    letter-spacing: 2px;
-    font-weight: 100;
-    color: black;
-}
-.restaurant-profile-box h2{
-    font-size: 13px;
-    letter-spacing: 0.2px;
-    font-weight: 300;
-    color: black;
-    text-align: left;
-}
-.restaurant-profile-box h4{
-    font-size: 12px;
-    letter-spacing: 2px;
-    font-weight: 100;
-    color: black;
-}
-.restaurant-profile-box h6{
-  font-size: 25px;
-  font-family: 'Poppins', sans-serif;
-  color: black;
-}
-.review-box{
-  position: absolute;
-  height: 500px;
-  width: 470px;
-  background: white;
-  left:650px;
-  top: 23%;
-  text-align: center;
-}
-

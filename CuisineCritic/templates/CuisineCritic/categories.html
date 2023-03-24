@@ -4,41 +4,7 @@
 {% endblock %} 
 {% load static %}
 
-{% block navbar %}
-<style>
-    .container {
-        color:black;
-        padding: 1rem;
-        border-radius: 3px;
-    }
-
-
-    .restaurant-image {
-        height:12rem;
-        object-fit: cover;
-    }
-
-    .restaurant-link {
-        color: black;
-        text-decoration: none;
-    }
-
-
-
-
-  .card {
-    min-width:18rem;
-  }
-
-  @media screen and (max-width: 700px) {
-    .card {
-       margin-top:10px;
-       margin-bottom:10px;
-    }
-  }
-
-
-</style>
+{% block content %}
 
 
 <div class="bg-image" id="background-img-wrap">
@@ -93,7 +59,7 @@
                         {% for restaurant in group %}
                             <div class="col">
                                 <a href="/restaurants/{{ restaurant.slug }}" class="restaurant-link">
-                                <div class="card">
+                                <div class="card restaurantcard">
                                     <img src="{{ restaurant.image }}" class="card-img-top restaurant-image">
                                     <div class="card-body">
                                     <p class="card-text"> {{ restaurant.name }} </p>
@@ -113,7 +79,4 @@
     </div>
 </div>
 
-{% endblock %}
-
-{% block body_block %}
 {% endblock %}

@@ -4,132 +4,9 @@
 {% endblock %} 
 {% load static %}
 
-{% block navbar %}
-<style>
-    .container {
-        color:black;
-        padding: 1rem;
-        border-radius: 3px;
-    }
+{% block content %}
 
-
-    .restaurant-image {
-        height:12rem;
-        object-fit: cover;
-    }
-
-    .restaurant-link {
-        color: black;
-        text-decoration: none;
-    }
-
-    .search-container{
-    width: 100%;
-    min-height: 80vh;
-    padding: 5%;
-    background-position: center;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: -30%;
-  }
-  .search-bar{
-    width: 100%;
-    max-width: 700px;
-    background: white;
-    display: flex;
-    align-items: center;
-    border-radius: 60px;
-    padding: 10px 20px;
-
-  }
-  .search-bar input{
-    background: transparent;
-    flex: 1;
-    border: 0;
-    outline: none;
-    padding: 24px 20px;
-    font-size: 20px;
-    color: black;
-  }
-
-
-
-  .card {
-    min-width:18rem;
-  }
-
-  @media screen and (max-width: 700px) {
-    .card {
-       margin-top:10px;
-       margin-bottom:10px;
-    }
-  }
-
-
-</style>
-
-<script>
-    window.onload = () => {
-        document.getElementById('search').addEventListener('submit', (e) => {
-            e.preventDefault();
-            let search = document.getElementById('query').value;
-            
-            var response = document.getElementById('search-response');
-            if (search == "") {
-                //send_search_alert("Please enter a search term.");
-            } else {
-                // fetch /api/search
-                fetch('/api/search', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRFToken': document.querySelector(["[name=csrfmiddlewaretoken]"]).value
-                    },
-                    body: new FormData(document.getElementById("search")),
-                })
-                .then(res => res.json())
-                .then(res => {
-                    if(res.success) {
-                        // display results
-                        var html = "We found the following restaurant(s):";
-                        html += `<ul class="list-group mt-3">`;
-                        for (var i = 0; i < res.restaurants.length; i++) {
-                            html += `<li class="list-group-item"><a href="/restaurants/${res.restaurants[i].slug}">${res.restaurants[i].name}</a></li>`;
-                        }
-                        html += `</ul>`;
-                        send_search_alert(html, false);
-                        
-                    } else {
-                        send_search_alert(res.message);
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                    send_search_alert("An unexpected error occurred.");
-                })
-            }
-        });
-    };
-
-    function send_search_alert(html, danger=true) {
-        if (danger) {
-            html = `<span class="text-danger">${html}</span>`;
-        }
-        document.getElementById('search-response').innerHTML = html;
-
-        var modal = new bootstrap.Modal(document.getElementById("search-modal"), {});
-        modal.show();
-
-        if(danger) {
-            setTimeout(
-                function() {
-                    modal.hide();
-                }, 2000
-            )
-        }
-    }
-</script>
+<script src="{% static 'search.js' %}"></script>
 
 <div class="modal fade" id="search-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="search-modal-title" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
@@ -220,7 +97,7 @@
                         {% for restaurant in category.restaurants %}
                             <div class="col">
                                 <a href="/restaurants/{{ restaurant.slug }}" class="restaurant-link">
-                                <div class="card">
+                                <div class="restaurantcard">
                                     <img src="{{ restaurant.image }}" class="card-img-top restaurant-image">
                                     <div class="card-body">
                                     <p class="card-text"> {{ restaurant.name }} </p>
@@ -242,7 +119,4 @@
     </div>
 </div>
 
-{% endblock %}
-
-{% block body_block %}
 {% endblock %}

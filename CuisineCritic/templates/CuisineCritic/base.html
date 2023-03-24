@@ -10,7 +10,9 @@
     <script src="https://kit.fontawesome.com/131ba6be4a.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <link id="theme" href="{% static 'bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'style.css' %}" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="{% static 'common.js' %}"></script>
     <title> 
         CuisineCritic
         {% block title_block %}
@@ -18,88 +20,14 @@
         {% endblock %} 
     </title>
     <style>
-        .container {
-            max-width: 960px;
-        }
-
-        .header-mw700 {
-            max-width: 700px;
-        }
-
+        /* this rule is here to allow usage of the static command */
         #background-img-wrap {
-          background: url("{% static 'background.png' %}");
-          background-repeat: no-repeat;
-            background-attachment: scroll;
-            background-position: bottom;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            background-size: cover;
-            -o-background-size: cover;
-            min-height: 100vh;
-        }
-
-
-        .bg-wrap-contents {
-          padding: 15rem !important;
-        }
-
-        @media screen and (max-width: 500px) {
-            .bg-wrap-contents {padding:5rem !important;}
-        }
-
-        .vertical-center {
-          margin: 0;
-          position: absolute;
-          top: 50%;
-          -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
-        }
-
-        #section1 {
-          background-color: #9dd5e3;
-        }
-
-        footer {
-            background-color: #2e302b;
-        }
-
-        footer * {
-            color: #fff;
-        }
-
-        nav div div ul li a.active {
-            color: #b5adad !important;
-        }
-
-        .category-name, .header-emphasis {
-            font-family: "Bebas Neue";
-        }
-
-        .restaurant, .account, .category {
-            background-color: white;
-        }
-
-        .bg-restaurant-wrapper, .bg-account-wrapper {
-            padding-top: 5rem;
-            padding-bottom: 5rem;
-        }
-
-        .nav-link:focus, .nav-link:hover {
-            color: #b5adad !important;
+            background: url("{% static 'background.png' %}");
         }
     </style>
 </head>
 <body>
-    {% block navbar %}
+    {% block content %}
     {% endblock %}
-
-    <!-- Page specific content goes here -->
-    <main>
-        {% block body_block %}
-        {% endblock %}
-    </main>
-
-
-
 </body>
 </html>

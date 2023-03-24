@@ -4,15 +4,7 @@
 {% endblock %} 
 {% load static %}
 
-{% block navbar%}
-<style>
-    .avatar {
-        border-radius: 100%;
-        width: 200px;
-        height:200px;
-        object-fit: cover;
-    }
-</style>
+{% block content %}
 <div class="bg-image" id="background-img-wrap">
     <nav class="navbar navbar-dark navbar-expand-lg">
         <div class="container container-fluid">
@@ -70,22 +62,6 @@
                                 <p> <b>Email:</b>  {{ user_details.email }} </p>
                                 <p> <b>Username:</b> {{ user_details.user.username }}</p>
                                 
-                            
-                                <!-- <h4>Change password</h4>
-
-                                <form id="change-password">
-                                    <div class="form-floating">
-                                        <input type="password" class="form-control" id="password" placeholder="Password">
-                                        <label for="password">Password</label>
-                                    </div>
-
-                                    <div class="form-floating mt-1">
-                                        <input type="password" class="form-control" id="password2" placeholder="Confirm password">
-                                        <label for="password2">Confirm password</label>
-                                    </div>
-
-                                    <button type="submit" class="btn btn-primary mt-3 mb-3" id="change-password">Change password</button>
-                                </form> -->
                                 
                                 
                                 
