@@ -23,12 +23,17 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.index, name='index'),
     path('login', views.login_page, name='login'),
+    path('login/', views.login_page, name='login'),
     path('register', views.register, name='register'),
+    path('register/', views.register, name='register'),
     path('restaurants', views.restaurant_list, name='restaurants'),
     path('restaurants/', views.restaurant_list, name='restaurants'),
     path('account', views.account, name='account'),
+    path('account/', views.account, name='account'),
     path('logout', views.logout_page, name='logout'),
+    path('logout/', views.logout_page, name='logout'),
     path('delete', views.delete_account, name='delete'),
+    path('delete/', views.delete_account, name='delete'),
 
 
 
@@ -41,6 +46,7 @@ urlpatterns = [
 
     # Add restaurant form
     path('add-restaurant', views.add_restaurant, name='add_restaurant'),
+    path('add-restaurant/', views.add_restaurant, name='add_restaurant'),
     
     # API URL endpoints:
     path('api/login', views.api_login, name='api_login'),
