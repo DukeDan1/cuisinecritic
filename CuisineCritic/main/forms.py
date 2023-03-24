@@ -23,24 +23,8 @@ class Registration(forms.ModelForm):
 
 
 
-<<<<<<< HEAD
-class CreateRestaurant(forms.ModelForm):
-	name=forms.CharField(required=True)
-	address=forms.CharField(required=True)
-	category=forms.CharField(label="Select...", widget=forms.Select(choices=get_category_choices()))
-=======
-class CreateResturaunt(forms.ModelForm):
-	# name=forms.CharField(required=True)
-	# address=forms.CharField(required=True)
-	
-	# categories = Category.objects.all()
-	# category_choices = []
-	# for x in categories:
-	# 	category_choices.append((x.category_id, x.name))
 
-	#category=forms.CharField(label="Select...", widget=forms.Select(choices=categories))
->>>>>>> a3ba9762eee4f864bb30d6f7dd701a5434582990
-	# slug is created automatically
+class CreateRestaurant(forms.ModelForm):
 
 	class Meta:
 		model = Restaurant
