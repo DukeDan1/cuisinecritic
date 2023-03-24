@@ -207,23 +207,28 @@ def delete_account(request):
     else:
         try:
             if request.POST.get("confirmation") != "true":
+                print("User did not confirm deletion")
                 return redirect("/account")
             
             
             profile = UserProfile.objects.get(user=request.user)
-
-            Review.objects.delete(user=profile)
-
-            profile.delete()
-
             user = User.objects.get(username=request.user.username)
+            reviews = Review.objects.filter(user=profile)
+
+            for x in reviews:
+                x.delete()
+            
+            profile.delete()
             user.delete()
+        
+            
 
             return redirect("/logout")
         except UserProfile.DoesNotExist:
             return redirect("/account")
         except Exception as e:
             print(e)
+            raise e
             return redirect("/account")
 
 # API:
