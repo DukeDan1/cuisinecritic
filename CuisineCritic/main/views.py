@@ -394,13 +394,6 @@ def api_submit_review(request):
 def api_create_restaurant(request):
     if request.method == "POST":
         try:
-            # c = Category.objects.get(category_id=request.POST.get('category'))
-            # data = {x[0]:x[1] for x in list(request.POST.items())}
-            # # data = request.POST.copy()
-            # # data.update({'category': c})
-
-            # data['category'] = c
-            # print(data)
 
             restaurant_form = CreateRestaurant(request.POST)
 
@@ -436,7 +429,7 @@ def api_upload_restaurant_image(request):
                 increment = 0
 
                 if image:
-                    while image:
+                    while image and increment < 10:
                         r = RestaurantImage(restaurant=restaurant, image_src=image)
                         r.save()
                         increment += 1
