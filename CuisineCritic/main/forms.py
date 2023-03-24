@@ -29,7 +29,7 @@ def get_category_choices():
 	return category_choices
 
 
-class CreateResturaunt(forms.ModelForm):
+class CreateRestaurant(forms.ModelForm):
 	name=forms.CharField(required=True)
 	address=forms.CharField(required=True)
 	category=forms.CharField(label="Select...", widget=forms.Select(choices=get_category_choices()))
@@ -40,17 +40,17 @@ class CreateResturaunt(forms.ModelForm):
 		fields = ("name", "address", "category")
 
 	def save(self, commit=True):
-		resturaunt = super(CreateResturaunt, self).save(commit=False)
-		resturaunt.name = self.cleaned_data["name"]
-		resturaunt.address = self.cleaned_data["address"]
+		restaurant = super(CreateRestaurant, self).save(commit=False)
+		restaurant.name = self.cleaned_data["name"]
+		restaurant.address = self.cleaned_data["address"]
 		category = self.cleaned_data["category"]
 
 		try:
-			resturaunt.category = Category.objects.get(category_id=category)
+			restaurant.category = Category.objects.get(category_id=category)
 		except Category.DoesNotExist:
 			raise forms.ValidationError("Category does not exist")
 		
 
 		if commit:
-			resturaunt.save()
-		return resturaunt
+			restaurant.save()
+		return restaurant

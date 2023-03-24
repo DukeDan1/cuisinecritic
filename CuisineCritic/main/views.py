@@ -11,7 +11,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login, logout
 from .models import *
 from django.db.models import Avg, Q
-from .forms import Registration
+from .forms import Registration, CreateRestaurant
 from django.contrib.auth.forms import UserCreationForm
 import random
 
@@ -287,7 +287,6 @@ def api_register(request):
             print(e)
             return HttpResponse(json.dumps({"message": "An unknown error occurred.", "success":False}), content_type="application/json")
     else: return HttpResponse(json.dumps({"message": "This endpoint only accepts POST requests.", "success":False}), content_type="application/json")
-    
 
 @csrf_protect
 def api_search(request):
@@ -320,19 +319,29 @@ def api_search(request):
 @csrf_protect
 def api_create_restaurant(request):
     if request.method == "POST":
-        name = request.POST.get('name')
-        address = request.POST.get('address')
-        category = request.POST.get('category')
-
-
         try:
-            r = Restaurant(name=name, address=address, category=category)
-            r.save()
-            return HttpResponse(json.dumps({"message": "Restaurant created successfully.", "success": True}), content_type="application/json")
-        except:
+            restaurant_form = CreateRestaurant(request.POST)
+            response_data = {'success':False, 'message': "The provided information is invalid."}
+
+            if restaurant_form.is_valid():
+
+                restaurant = restaurant_form.save()
+                restaurant.save()
+
+                response_data['success'] = True
+                response_data['message'] = 'You have successfully created a restaurant.'
+                return HttpResponse(json.dumps(response_data), content_type="application/json")
+            else:
+                if not restaurant_form.is_valid() and restaurant_form.errors:
+                    response_data['message'] += " \n\n " + restaurant_form.errors.as_ul()
+
+            return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+        except Exception as e:
+            print(e)
+
             return HttpResponse(json.dumps({"message": "Unable to create restaurant. Please try again.", "success": False}), content_type="application/json")
 
-        
     else: return HttpResponse(json.dumps({"message": "This endpoint only accepts POST requests.", "success":False}), content_type="application/json")
 
 
